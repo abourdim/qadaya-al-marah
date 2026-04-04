@@ -1,588 +1,859 @@
-/* قضايا المرأة — WOMEN'S ISSUES — app.js v1.0 */
+/* قضايا المرأة — WOMEN'S ISSUES — app.js v2.0 */
 /* Based on "Qadaya al-Mar'ah" by Sheikh Mohammed al-Ghazali (1917-1996) */
 
 // ═══════════════ TRILINGUAL DATA ═══════════════
 const T = {
   ar: {
     appTitle: 'قضايا المرأة',
-    splashSub: 'حقوق المرأة بين التقاليد الراكدة والوافدة',
+    splashSub: 'بين التقاليد الجامدة والوافدة',
     splashHint: 'اضغط للتخطي',
-    sacredRef: 'سورة البقرة ٢: ٢٢٨',
-    tabHome: 'الرئيسية', tabConcepts: 'القضايا', tabHeroines: 'نساء خالدات',
-    tabHabits: 'العادات', tabQuiz: 'اختبار', tabAbout: 'الكتاب',
-    conceptsTitle: 'قضايا المرأة في الإسلام',
-    conceptsDesc: '٢٠ قضية شرحها الشيخ الغزالي — بين ما يقوله الإسلام حقاً وما فرضته التقاليد',
-    heroinesTitle: 'نساء خالدات',
-    heroinesDesc: 'نساء صنعن التاريخ الإسلامي وأثبتن أن الإسلام كرّم المرأة',
-    habitsTitle: 'عاداتي اليومية',
-    habitsDesc: 'عادات مستوحاة من تعاليم الكتاب — تتبّعي تقدمك يومياً',
-    quizTitle: 'اختبر معرفتك',
-    quizDesc: 'ماذا تعرف عن حقوق المرأة في الإسلام؟ أجب واكتشف',
+    sacredRef: 'سورة النساء ٤: ١',
+    tabHome: 'الرئيسية', tabTraits: 'القضايا', tabQuiz: 'المسابقة',
+    tabProgress: 'تقدمي', tabAbout: 'الكتاب',
+    traitsTitle: 'قضايا المرأة في الإسلام',
+    traitsDesc: '٢٠ قضية من كتاب الشيخ الغزالي — كل قضية بآية وحديث وتحليل عملي',
+    quizTitle: '🏆 من سيصبح عالِماً؟',
+    quizDesc: 'اختبر معلوماتك عن حقوق المرأة في الإسلام — ٤ خيارات لكل سؤال',
+    progressTitle: 'رحلتي في الوعي',
+    progressDesc: 'تقدمك وإنجازاتك في فهم قضايا المرأة',
     helpTitle: '❓ مساعدة',
     duaPanelTitle: '🤲 أدعية',
-    resetBtn: 'إعادة تعيين اليوم',
-    submitQuiz: 'اعرف النتيجة',
-    dailyLabel: '✨ فكرة اليوم',
-    islam: 'الإسلام',
-    tradition: 'التقاليد',
-    truth: '✅ الحقيقة الإسلامية',
-    myth: '❌ المفهوم الخاطئ',
-    action: '💡 طبّق الآن',
-    quizAgain: 'أعد الاختبار',
-    verse: 'الآية',
-    share: 'مشاركة',
+    dailyLabel: '✨ قضية اليوم',
     searchPlaceholder: 'ابحث في القضايا...',
-    streakMsg: 'يوم متتالي!',
-    allDone: 'أحسنت! أكملت جميع العادات!',
-    splashFeatures: [
-      '٢٠ قضية عن حقوق المرأة في الإسلام',
-      'نساء خالدات صنعن التاريخ',
-      'عادات يومية مع تتبع مستمر',
-      'اختبار معرفتك + أدعية'
-    ],
+    share: 'مشاركة', verse: 'الآية', hadith: 'الحديث', apply: '💡 طبّق الآن',
+    youngMode: '🌟 مستكشف صغير', teenMode: '📖 باحث شاب',
+    xpLabel: 'نقاط الخبرة', levelLabel: 'المستوى', streakMsg: 'يوم متتالي!',
+    readMore: 'اقرأ المزيد', nextQ: 'السؤال التالي',
+    lifeline5050: '50/50', lifelineHint: '💡 تلميح', lifelineQuran: '📖 مرجع قرآني',
+    correct: 'أحسنت! إجابة صحيحة! 🎉', wrong: 'حاول مرة أخرى 💪',
+    quizComplete: 'انتهت المسابقة!', score: 'النتيجة', tryAgain: 'أعد المسابقة',
+    badge_beginner: 'مبتدئ', badge_reader: 'قارئ', badge_scholar: 'عالم',
+    badge_persistent: 'مثابر', badge_expert: 'خبير',
+    splashFeatures: ['٢٠ قضية عن حقوق المرأة في الإسلام','مسابقة "من سيصبح عالماً" بالمكافآت','نظام النقاط والشارات والمستويات','وضع مستكشف صغير ووضع باحث شاب'],
   },
   en: {
     appTitle: "Women's Issues",
-    splashSub: "Women's rights between stagnant and imported traditions",
+    splashSub: 'Between rigid traditions and foreign influences',
     splashHint: 'tap to skip',
-    sacredRef: 'Surah Al-Baqarah 2:228',
-    tabHome: 'Home', tabConcepts: 'Issues', tabHeroines: 'Heroines',
-    tabHabits: 'Habits', tabQuiz: 'Quiz', tabAbout: 'Book',
-    conceptsTitle: "Women's Issues in Islam",
-    conceptsDesc: "20 issues explained by Sheikh al-Ghazali — between what Islam truly says and what traditions imposed",
-    heroinesTitle: 'Immortal Women',
-    heroinesDesc: 'Women who shaped Islamic history and proved Islam honored women',
-    habitsTitle: 'My Daily Habits',
-    habitsDesc: 'Habits inspired by the book — track your daily progress',
-    quizTitle: 'Test Your Knowledge',
-    quizDesc: "What do you know about women's rights in Islam? Answer and discover",
+    sacredRef: 'Surah An-Nisa 4:1',
+    tabHome: 'Home', tabTraits: 'Issues', tabQuiz: 'Quiz',
+    tabProgress: 'Progress', tabAbout: 'Book',
+    traitsTitle: "Women's Issues in Islam",
+    traitsDesc: '20 issues from Sheikh al-Ghazali — each with a verse, hadith, and practical analysis',
+    quizTitle: '🏆 Who Wants to Be a Scholar?',
+    quizDesc: "Test your knowledge of women's rights in Islam — 4 choices per question",
+    progressTitle: 'My Awareness Journey',
+    progressDesc: "Your progress and achievements in understanding women's issues",
     helpTitle: '❓ Help',
     duaPanelTitle: '🤲 Duas',
-    resetBtn: 'Reset Today',
-    submitQuiz: 'See Results',
-    dailyLabel: "✨ Today's Insight",
-    islam: 'Islam',
-    tradition: 'Traditions',
-    truth: '✅ Islamic Truth',
-    myth: '❌ Common Misconception',
-    action: '💡 Apply Now',
-    quizAgain: 'Retake Quiz',
-    verse: 'Verse',
-    share: 'Share',
+    dailyLabel: "✨ Today's Issue",
     searchPlaceholder: 'Search issues...',
-    streakMsg: 'day streak!',
-    allDone: 'Well done! All habits completed!',
-    splashFeatures: [
-      "20 issues on women's rights in Islam",
-      'Heroines who shaped history',
-      'Daily habits with streak tracking',
-      'Knowledge quiz + duas'
-    ],
+    share: 'Share', verse: 'Verse', hadith: 'Hadith', apply: '💡 Apply Now',
+    youngMode: '🌟 Young Explorer', teenMode: '📖 Teen Scholar',
+    xpLabel: 'Experience Points', levelLabel: 'Level', streakMsg: 'day streak!',
+    readMore: 'Read More', nextQ: 'Next Question',
+    lifeline5050: '50/50', lifelineHint: '💡 Hint', lifelineQuran: '📖 Quran Ref',
+    correct: 'Well done! Correct answer! 🎉', wrong: 'Try again next time 💪',
+    quizComplete: 'Quiz Complete!', score: 'Score', tryAgain: 'Retry Quiz',
+    badge_beginner: 'Beginner', badge_reader: 'Reader', badge_scholar: 'Scholar',
+    badge_persistent: 'Persistent', badge_expert: 'Expert',
+    splashFeatures: ["20 issues on women's rights in Islam",'"Who Wants to Be a Scholar?" quiz with rewards','Points, badges, and level system','Young Explorer and Teen Scholar modes'],
   },
   fr: {
-    appTitle: 'Questions de la Femme',
-    splashSub: 'Droits de la femme entre traditions stagnantes et importees',
+    appTitle: 'Questions Feminines',
+    splashSub: 'Entre traditions rigides et influences etrangeres',
     splashHint: 'appuyez pour passer',
-    sacredRef: 'Sourate Al-Baqarah 2:228',
-    tabHome: 'Accueil', tabConcepts: 'Questions', tabHeroines: 'Heroines',
-    tabHabits: 'Habitudes', tabQuiz: 'Quiz', tabAbout: 'Livre',
-    conceptsTitle: 'Questions de la Femme en Islam',
-    conceptsDesc: '20 questions expliquees par Sheikh al-Ghazali — entre ce que dit vraiment l\'Islam et ce qu\'imposent les traditions',
-    heroinesTitle: 'Femmes Immortelles',
-    heroinesDesc: 'Femmes qui ont faconne l\'histoire islamique et prouve que l\'Islam honore la femme',
-    habitsTitle: 'Mes Habitudes Quotidiennes',
-    habitsDesc: 'Habitudes inspirees du livre — suivez vos progres',
-    quizTitle: 'Testez Vos Connaissances',
-    quizDesc: 'Que savez-vous des droits de la femme en Islam ? Repondez et decouvrez',
+    sacredRef: 'Sourate An-Nisa 4:1',
+    tabHome: 'Accueil', tabTraits: 'Questions', tabQuiz: 'Quiz',
+    tabProgress: 'Progres', tabAbout: 'Livre',
+    traitsTitle: 'Questions Feminines en Islam',
+    traitsDesc: '20 questions du Sheikh al-Ghazali — chacune avec un verset, un hadith et une analyse pratique',
+    quizTitle: '🏆 Qui Veut Devenir Savant ?',
+    quizDesc: 'Testez vos connaissances sur les droits des femmes en Islam — 4 choix par question',
+    progressTitle: 'Mon Parcours de Sensibilisation',
+    progressDesc: 'Vos progres dans la comprehension des questions feminines',
     helpTitle: '❓ Aide',
     duaPanelTitle: '🤲 Duas',
-    resetBtn: 'Reinitialiser',
-    submitQuiz: 'Voir les Resultats',
-    dailyLabel: '✨ Pensee du Jour',
-    islam: 'Islam',
-    tradition: 'Traditions',
-    truth: '✅ Verite Islamique',
-    myth: '❌ Idee Recue',
-    action: '💡 Appliquez Maintenant',
-    quizAgain: 'Refaire le Quiz',
-    verse: 'Verset',
-    share: 'Partager',
+    dailyLabel: '✨ Question du Jour',
     searchPlaceholder: 'Rechercher les questions...',
-    streakMsg: 'jours consecutifs !',
-    allDone: 'Bravo ! Toutes les habitudes accomplies !',
-    splashFeatures: [
-      '20 questions sur les droits de la femme en Islam',
-      'Heroines qui ont faconne l\'histoire',
-      'Habitudes quotidiennes avec suivi',
-      'Quiz + duas quotidiennes'
-    ],
+    share: 'Partager', verse: 'Verset', hadith: 'Hadith', apply: '💡 Appliquez',
+    youngMode: '🌟 Jeune Explorateur', teenMode: '📖 Jeune Chercheur',
+    xpLabel: 'Points d\'Experience', levelLabel: 'Niveau', streakMsg: 'jours consecutifs !',
+    readMore: 'Lire Plus', nextQ: 'Question Suivante',
+    lifeline5050: '50/50', lifelineHint: '💡 Indice', lifelineQuran: '📖 Ref. Coran',
+    correct: 'Bravo ! Bonne reponse ! 🎉', wrong: 'Reessayez 💪',
+    quizComplete: 'Quiz Termine !', score: 'Score', tryAgain: 'Refaire le Quiz',
+    badge_beginner: 'Debutant', badge_reader: 'Lecteur', badge_scholar: 'Savant',
+    badge_persistent: 'Perseverant', badge_expert: 'Expert',
+    splashFeatures: ['20 questions sur les droits des femmes en Islam','Quiz Qui Veut Devenir Savant avec recompenses','Systeme de points, badges et niveaux','Modes Jeune Explorateur et Jeune Chercheur'],
   }
 };
 
-// ═══════════════ CONCEPTS DATA (20 cards) ═══════════════
-const CONCEPTS = [
+// ═══════════════ 20 TRAITS DATA ═══════════════
+const TRAITS = [
   {
-    id:1, emoji:'📚',
-    ar:{title:'حق المرأة في التعليم',desc:'الإسلام فرض طلب العلم على المرأة كما فرضه على الرجل. النبي ﷺ قال: "طلب العلم فريضة على كل مسلم" — والمسلم يشمل الذكر والأنثى.',truth:'الإسلام جعل التعليم فريضة على المرأة والرجل سواء',myth:'البعض يظن أن تعليم المرأة غير مهم أو مكروه',action:'شاركي معلومة مفيدة تعلمتِها اليوم مع شخص آخر'},
-    en:{title:"Women's Right to Education",desc:'Islam made seeking knowledge obligatory for women just as for men. The Prophet (peace be upon him) said: "Seeking knowledge is obligatory upon every Muslim" — and Muslim includes both male and female.',truth:'Islam made education equally obligatory for women and men',myth:'Some think educating women is unimportant or disliked',action:'Share a useful piece of knowledge you learned today with someone'},
-    fr:{title:"Le Droit de la Femme a l'Education",desc:"L'Islam a rendu la recherche du savoir obligatoire pour la femme comme pour l'homme. Le Prophete (paix sur lui) a dit : Chercher le savoir est une obligation pour tout musulman — et musulman inclut homme et femme.",truth:"L'Islam a rendu l'education egalement obligatoire pour les femmes et les hommes",myth:"Certains pensent que l'education des femmes est sans importance",action:'Partagez une connaissance utile que vous avez apprise aujourd\'hui'}
+    id:1, emoji:'📖',
+    ar:{title:'المرأة في القرآن',desc:'القرآن أنصف المرأة وأعطاها مكانة عالية. سورة كاملة باسم النساء، وذكر الله مريم وآسية وأم موسى كنماذج للإيمان والصبر.',verse:'وَمَن يَعْمَلْ مِنَ الصَّالِحَاتِ مِن ذَكَرٍ أَوْ أُنثَىٰ وَهُوَ مُؤْمِنٌ فَأُولَٰئِكَ يَدْخُلُونَ الْجَنَّةَ',verseRef:'النساء ١٢٤',hadith:'إنما النساء شقائق الرجال — رواه أبو داود',action:'اقرأ سورة النساء وتأمل كيف أنصف القرآن المرأة',young:'القرآن أعطى المرأة حقوقاً عظيمة! اكتشف كيف كرّمها الله 📖'},
+    en:{title:'Women in the Quran',desc:'The Quran did justice to women and gave them high status. An entire surah is named "The Women," and God mentioned Maryam, Asiya, and the mother of Musa as models of faith.',verse:'Whoever does good deeds, male or female, while being a believer — those will enter Paradise',verseRef:'An-Nisa 124',hadith:'Women are the twin halves of men — Abu Dawud',action:'Read Surah An-Nisa and reflect on how the Quran honored women',young:'The Quran gave women great rights! Discover how God honored them 📖'},
+    fr:{title:'La Femme dans le Coran',desc:'Le Coran a rendu justice aux femmes et leur a donne un statut eleve. Une sourate entiere porte le nom "Les Femmes". Dieu a mentionne Maryam, Asiya et la mere de Moussa comme modeles.',verse:'Quiconque fait de bonnes oeuvres, homme ou femme, tout en etant croyant — ceux-la entreront au Paradis',verseRef:'An-Nisa 124',hadith:'Les femmes sont les moities jumelles des hommes — Abu Dawud',action:'Lisez la sourate An-Nisa et reflechissez a comment le Coran a honore les femmes',young:'Le Coran a donne aux femmes de grands droits ! Decouvre comment Dieu les a honorees 📖'}
   },
   {
-    id:2, emoji:'💼',
-    ar:{title:'حق المرأة في العمل',desc:'الإسلام لم يمنع المرأة من العمل. خديجة رضي الله عنها كانت سيدة أعمال ناجحة قبل الإسلام وبعده. الشرط هو أن يكون العمل في إطار الضوابط الشرعية.',truth:'المرأة المسلمة لها حق العمل والتجارة والكسب',myth:'يعتقد البعض أن مكان المرأة البيت فقط',action:'تعرفي على سيدة أعمال مسلمة ناجحة واقرئي قصتها'},
-    en:{title:"Women's Right to Work",desc:"Islam did not prohibit women from working. Khadijah (may God be pleased with her) was a successful businesswoman before and after Islam. The condition is that work follows Islamic guidelines.",truth:'Muslim women have the right to work, trade, and earn',myth:"Some believe a woman's place is only at home",action:'Learn about a successful Muslim businesswoman and read her story'},
-    fr:{title:'Le Droit de la Femme au Travail',desc:"L'Islam n'a pas interdit aux femmes de travailler. Khadijah etait une femme d'affaires prospere avant et apres l'Islam. La condition est que le travail respecte les regles islamiques.",truth:'Les femmes musulmanes ont le droit de travailler et de commercer',myth:"Certains croient que la place de la femme est uniquement a la maison",action:"Decouvrez une femme d'affaires musulmane et lisez son histoire"}
+    id:2, emoji:'🎓',
+    ar:{title:'حق التعليم',desc:'طلب العلم فريضة على كل مسلم ومسلمة دون تفريق. الإسلام أوجب تعليم المرأة. عائشة كانت مرجعاً للصحابة في الفقه والحديث.',verse:'قُلْ هَلْ يَسْتَوِي الَّذِينَ يَعْلَمُونَ وَالَّذِينَ لَا يَعْلَمُونَ',verseRef:'الزمر ٩',hadith:'طلب العلم فريضة على كل مسلم — رواه ابن ماجه',action:'شجع امرأة أو فتاة على طلب العلم اليوم',young:'التعليم حق لكل فتاة! عائشة كانت أذكى الناس في زمانها 🎓'},
+    en:{title:'The Right to Education',desc:'Seeking knowledge is an obligation on every Muslim, male and female, without distinction. Islam mandated women\'s education. Aisha was a reference for companions in jurisprudence and hadith.',verse:'Say: Are those who know equal to those who do not know?',verseRef:'Az-Zumar 9',hadith:'Seeking knowledge is an obligation upon every Muslim — Ibn Majah',action:'Encourage a woman or girl to seek knowledge today',young:'Education is a right for every girl! Aisha was the smartest person of her time 🎓'},
+    fr:{title:'Le Droit a l\'Education',desc:'La quete du savoir est une obligation pour chaque musulman et musulmane. L\'Islam a impose l\'education des femmes. Aisha etait une reference en jurisprudence et hadith.',verse:'Dis : Sont-ils egaux, ceux qui savent et ceux qui ne savent pas ?',verseRef:'Az-Zumar 9',hadith:'La quete du savoir est une obligation pour chaque musulman — Ibn Majah',action:'Encouragez une femme ou une fille a chercher le savoir aujourd\'hui',young:'L\'education est un droit pour chaque fille ! Aisha etait la plus savante de son epoque 🎓'}
   },
   {
-    id:3, emoji:'💍',
-    ar:{title:'حق المرأة في اختيار زوجها',desc:'الإسلام أعطى المرأة حق قبول أو رفض الزوج. لا يجوز إجبارها على الزواج. النبي ﷺ رد زواج فتاة أُجبرت وخيّرها.',truth:'لا يصح الزواج بدون رضا المرأة الصريح',myth:'إجبار البنت على الزواج من تقاليد ما قبل الإسلام لا من الدين',action:'تحدثي مع أسرتك عن أهمية رضا المرأة في الزواج'},
-    en:{title:"Women's Right to Choose a Spouse",desc:"Islam gave women the right to accept or refuse a spouse. Forcing a woman into marriage is not permissible. The Prophet (peace be upon him) annulled a marriage where a girl was forced and gave her the choice.",truth:"Marriage is invalid without the woman's explicit consent",myth:'Forcing girls into marriage is a pre-Islamic tradition, not religion',action:'Discuss the importance of consent in marriage with your family'},
-    fr:{title:'Le Droit de Choisir son Epoux',desc:"L'Islam a donne a la femme le droit d'accepter ou de refuser un epoux. Il n'est pas permis de forcer une femme au mariage. Le Prophete a annule un mariage force et a donne le choix a la jeune fille.",truth:'Le mariage est invalide sans le consentement explicite de la femme',myth:"Forcer les filles au mariage est une tradition pre-islamique, pas religieuse",action:"Discutez de l'importance du consentement dans le mariage avec votre famille"}
+    id:3, emoji:'💼',
+    ar:{title:'حق العمل',desc:'الإسلام لم يمنع المرأة من العمل بل وضع ضوابط تحفظ كرامتها. خديجة كانت تاجرة ناجحة. العمل حق مشروع بشروط الاحتشام والكفاءة.',verse:'لِّلرِّجَالِ نَصِيبٌ مِّمَّا اكْتَسَبُوا وَلِلنِّسَاءِ نَصِيبٌ مِّمَّا اكْتَسَبْنَ',verseRef:'النساء ٣٢',hadith:'إن الله يحب إذا عمل أحدكم عملاً أن يتقنه — رواه الطبراني',action:'ادعم امرأة عاملة في محيطك — كلمة تشجيع تصنع فرقاً',young:'خديجة كانت سيدة أعمال ناجحة! المرأة يمكنها العمل والنجاح 💼'},
+    en:{title:'The Right to Work',desc:'Islam did not prohibit women from working but set guidelines to preserve dignity. Khadijah was a successful merchant. Work is a legitimate right with conditions of modesty and competence.',verse:'For men is a share of what they have earned, and for women is a share of what they have earned',verseRef:'An-Nisa 32',hadith:'God loves that when one of you does a task, they perfect it — al-Tabarani',action:'Support a working woman in your circle — a word of encouragement makes a difference',young:'Khadijah was a successful businesswoman! Women can work and succeed 💼'},
+    fr:{title:'Le Droit au Travail',desc:'L\'Islam n\'a pas interdit aux femmes de travailler mais a mis des regles pour preserver la dignite. Khadijah etait une marchande prospere.',verse:'Aux hommes une part de ce qu\'ils ont acquis, et aux femmes une part de ce qu\'elles ont acquis',verseRef:'An-Nisa 32',hadith:'Dieu aime que lorsque l\'un de vous fait un travail, il le perfectionne — al-Tabarani',action:'Soutenez une femme qui travaille dans votre entourage',young:'Khadijah etait une femme d\'affaires prospere ! Les femmes peuvent travailler et reussir 💼'}
   },
   {
     id:4, emoji:'💰',
-    ar:{title:'الذمة المالية المستقلة',desc:'المرأة في الإسلام لها ذمة مالية مستقلة تماماً. مالها لها وحدها، ولا يحق لزوجها أو أبيها التصرف فيه بغير إذنها. هذا الحق سبق القوانين الغربية بقرون.',truth:'مال المرأة لها وحدها ولا يحق لأحد أخذه',myth:'البعض يظن أن راتب المرأة من حق زوجها',action:'تعرفي على حقوقك المالية في الإسلام'},
-    en:{title:'Independent Financial Identity',desc:"Women in Islam have a completely independent financial identity. Her money is hers alone, and neither her husband nor father may use it without her permission. This right preceded Western laws by centuries.",truth:"A woman's money is hers alone and no one may take it",myth:"Some think a woman's salary belongs to her husband",action:'Learn about your financial rights in Islam'},
-    fr:{title:'Identite Financiere Independante',desc:"La femme en Islam a une identite financiere completement independante. Son argent est le sien seul, et ni son mari ni son pere ne peuvent en disposer sans sa permission.",truth:"L'argent de la femme est le sien et personne ne peut le prendre",myth:"Certains pensent que le salaire de la femme appartient a son mari",action:'Decouvrez vos droits financiers en Islam'}
+    ar:{title:'حق الميراث',desc:'قبل الإسلام لم تكن المرأة ترث بل كانت تُورث كمتاع. الإسلام أعطاها نصيباً محدداً. نصيبها يختلف حسب درجة القرابة لا حسب الجنس فقط.',verse:'لِّلرِّجَالِ نَصِيبٌ مِّمَّا تَرَكَ الْوَالِدَانِ وَالْأَقْرَبُونَ وَلِلنِّسَاءِ نَصِيبٌ',verseRef:'النساء ٧',hadith:'تعلموا الفرائض وعلموها الناس — رواه الدارقطني',action:'تعلّم أحكام الميراث — إنها أكثر عدلاً مما يظن الكثيرون',young:'الإسلام أعطى المرأة حقها في الميراث! هذا كان ثورة في زمانه 💰'},
+    en:{title:'Inheritance Rights',desc:'Before Islam, women did not inherit; they were inherited as property. Islam gave them a specific share. Their share varies by kinship degree, not just gender.',verse:'For men is a share of what parents and relatives leave, and for women is a share',verseRef:'An-Nisa 7',hadith:'Learn the laws of inheritance and teach them to people — al-Daraqutni',action:'Learn about inheritance laws in Islam — they are more just than many think',young:'Islam gave women the right to inherit! This was revolutionary in its time 💰'},
+    fr:{title:'Les Droits d\'Heritage',desc:'Avant l\'Islam, les femmes n\'heritaient pas; elles etaient heritees comme des biens. L\'Islam leur a donne une part specifique selon le degre de parente.',verse:'Aux hommes une part de ce que laissent les parents et proches, et aux femmes une part',verseRef:'An-Nisa 7',hadith:'Apprenez les lois de l\'heritage et enseignez-les — al-Daraqutni',action:'Apprenez les lois d\'heritage en Islam — elles sont plus justes que beaucoup ne pensent',young:'L\'Islam a donne aux femmes le droit d\'heriter ! C\'etait revolutionnaire 💰'}
   },
   {
-    id:5, emoji:'🧕',
-    ar:{title:'الحجاب: حرية لا قيد',desc:'الحجاب في الإسلام هو تكريم للمرأة وحماية لها. الغزالي يوضح أنه ليس سجناً بل هو تحرير من نظرة المجتمع المادية للمرأة.',truth:'الحجاب اختيار واعٍ يعبر عن الإيمان والكرامة',myth:'الحجاب ليس رمزاً للقمع بل للحرية الروحية',action:'تأملي في معنى الحجاب الحقيقي: حجاب القلب والسلوك قبل المظهر'},
-    en:{title:'Hijab: Freedom Not Restriction',desc:"Hijab in Islam is an honoring and protection of women. Al-Ghazali explains it is not a prison but liberation from society's materialistic view of women.",truth:'Hijab is a conscious choice expressing faith and dignity',myth:'Hijab is not a symbol of oppression but of spiritual freedom',action:'Reflect on the true meaning of hijab: modesty of heart and behavior before appearance'},
-    fr:{title:'Le Hijab : Liberte et non Restriction',desc:"Le hijab en Islam est un honneur et une protection pour la femme. Al-Ghazali explique que ce n'est pas une prison mais une liberation de la vision materialiste de la societe.",truth:'Le hijab est un choix conscient exprimant la foi et la dignite',myth:"Le hijab n'est pas un symbole d'oppression mais de liberte spirituelle",action:'Reflechissez au vrai sens du hijab : modestie du coeur et du comportement avant l\'apparence'}
+    id:5, emoji:'💍',
+    ar:{title:'رضا المرأة في الزواج',desc:'لا يجوز إجبار المرأة على الزواج ممن لا تريد. رضاها شرط أساسي لصحة العقد. النبي ﷺ ردّ زواج فتيات أُكرهن.',verse:'يَا أَيُّهَا الَّذِينَ آمَنُوا لَا يَحِلُّ لَكُمْ أَن تَرِثُوا النِّسَاءَ كَرْهًا',verseRef:'النساء ١٩',hadith:'لا تُنكح البكر حتى تُستأذن — متفق عليه',action:'ادعم حق المرأة في اختيار شريك حياتها',young:'المرأة تختار زوجها بنفسها! النبي ﷺ رفض إجبار الفتيات 💍'},
+    en:{title:'Consent in Marriage',desc:'It is not permissible to force a woman to marry someone she does not want. Her consent is fundamental for the contract\'s validity. The Prophet returned marriages of coerced women.',verse:'O you who believe, it is not lawful for you to inherit women against their will',verseRef:'An-Nisa 19',hadith:'A virgin should not be married until she gives her permission — Agreed upon',action:'Support a woman\'s right to choose her life partner',young:'A woman chooses her own husband! The Prophet refused to force girls 💍'},
+    fr:{title:'Le Consentement au Mariage',desc:'Il n\'est pas permis de forcer une femme a epouser quelqu\'un qu\'elle ne veut pas. Son consentement est fondamental. Le Prophete a annule des mariages forces.',verse:'O vous qui croyez, il ne vous est pas permis d\'heriter des femmes contre leur gre',verseRef:'An-Nisa 19',hadith:'Une vierge ne doit pas etre mariee sans sa permission — Unanimement reconnu',action:'Soutenez le droit de la femme a choisir son partenaire de vie',young:'La femme choisit son mari elle-meme ! Le Prophete a refuse de forcer les filles 💍'}
   },
   {
     id:6, emoji:'⚖️',
-    ar:{title:'الميراث: حكمة لا ظلم',desc:'نظام الميراث في الإسلام مبني على المسؤولية المالية. الرجل مُلزم بالنفقة، المرأة ليست كذلك. في حالات كثيرة ترث المرأة مثل الرجل أو أكثر.',truth:'الميراث مبني على نظام النفقة والمسؤولية لا على التمييز',myth:'القول بأن المرأة دائماً ترث نصف الرجل غير دقيق',action:'ادرسي أحكام الميراث في الإسلام — ستكتشفين العدالة المدهشة'},
-    en:{title:'Inheritance: Wisdom Not Injustice',desc:'The inheritance system in Islam is based on financial responsibility. Men are obligated to provide; women are not. In many cases, women inherit equal to or more than men.',truth:'Inheritance is based on responsibility and provision, not discrimination',myth:'Saying women always inherit half is inaccurate',action:'Study inheritance rules in Islam — you will discover amazing justice'},
-    fr:{title:"L'Heritage : Sagesse et non Injustice",desc:"Le systeme d'heritage en Islam est base sur la responsabilite financiere. L'homme est oblige de subvenir aux besoins, pas la femme. Dans de nombreux cas, la femme herite autant ou plus que l'homme.",truth:"L'heritage est base sur la responsabilite, pas la discrimination",myth:'Dire que la femme herite toujours la moitie est inexact',action:"Etudiez les regles d'heritage en Islam — vous decouvrirez une justice etonnante"}
+    ar:{title:'حق الطلاق',desc:'الإسلام أعطى المرأة حق طلب الطلاق (الخلع) إذا تضررت. ليس الطلاق حكراً على الرجل. المرأة يمكنها فسخ عقد يؤذيها.',verse:'فَإِمْسَاكٌ بِمَعْرُوفٍ أَوْ تَسْرِيحٌ بِإِحْسَانٍ',verseRef:'البقرة ٢٢٩',hadith:'أبغض الحلال إلى الله الطلاق — رواه أبو داود',action:'تعرّف على أحكام الخلع وحقوق المرأة في فسخ الزواج',young:'المرأة لها حق الطلاق إذا تأذت! الإسلام حماها من الظلم ⚖️'},
+    en:{title:'The Right to Divorce',desc:'Islam gave women the right to seek divorce (khul) if harmed. Divorce is not exclusive to men. A woman can dissolve a contract that harms her.',verse:'Either retain in kindness or release with good treatment',verseRef:'Al-Baqarah 229',hadith:'The most hated permissible thing to God is divorce — Abu Dawud',action:'Learn about khul and women\'s rights in dissolving marriage',young:'Women have the right to divorce if harmed! Islam protected them ⚖️'},
+    fr:{title:'Le Droit au Divorce',desc:'L\'Islam a donne aux femmes le droit de demander le divorce (khul) si elles sont leses. Le divorce n\'est pas exclusif aux hommes.',verse:'Soit retenir avec bonte, soit liberer avec bienfaisance',verseRef:'Al-Baqarah 229',hadith:'La chose permise la plus detestee de Dieu est le divorce — Abu Dawud',action:'Decouvrez le khul et les droits des femmes dans la dissolution du mariage',young:'Les femmes ont le droit de divorcer si elles sont leses ! L\'Islam les a protegees ⚖️'}
   },
   {
-    id:7, emoji:'🏫',
-    ar:{title:'المرأة والمشاركة المجتمعية',desc:'النساء في عهد النبي ﷺ شاركن في الحياة العامة: حضرن المساجد، شاركن في الشورى، عملن في التجارة والطب والتعليم.',truth:'الإسلام شجع مشاركة المرأة في الحياة العامة',myth:'عزل المرأة عن المجتمع ليس من الإسلام',action:'شاركي في نشاط مجتمعي مفيد هذا الأسبوع'},
-    en:{title:'Women and Community Participation',desc:"Women in the Prophet's time participated in public life: they attended mosques, participated in consultation, worked in trade, medicine, and education.",truth:'Islam encouraged women to participate in public life',myth:"Isolating women from society is not from Islam",action:'Participate in a beneficial community activity this week'},
-    fr:{title:'La Femme et la Participation Communautaire',desc:"Les femmes a l'epoque du Prophete participaient a la vie publique : elles frequentaient les mosquees, participaient a la consultation, travaillaient dans le commerce et la medecine.",truth:"L'Islam a encourage les femmes a participer a la vie publique",myth:"Isoler les femmes de la societe ne vient pas de l'Islam",action:'Participez a une activite communautaire utile cette semaine'}
+    id:7, emoji:'🧕',
+    ar:{title:'حكمة الحجاب',desc:'الحجاب تشريع إلهي غايته حماية المرأة وتكريمها لا إذلالها. الغزالي يرى أنه يحرر المرأة من الاستغلال ويجعل قيمتها في عقلها لا جسدها.',verse:'يَا أَيُّهَا النَّبِيُّ قُل لِّأَزْوَاجِكَ وَبَنَاتِكَ وَنِسَاءِ الْمُؤْمِنِينَ يُدْنِينَ عَلَيْهِنَّ مِن جَلَابِيبِهِنَّ',verseRef:'الأحزاب ٥٩',hadith:'الحياء لا يأتي إلا بخير — متفق عليه',action:'افهم الحجاب كتكريم لا كقيد',young:'الحجاب يحمي المرأة ويكرمها! قيمتك في عقلك وأخلاقك 🧕'},
+    en:{title:'The Wisdom of Hijab',desc:'Hijab is divine legislation to protect and honor women, not humiliate them. Al-Ghazali sees it as freeing women from exploitation, valuing intellect over body.',verse:'O Prophet, tell your wives and daughters and the believing women to bring down their outer garments',verseRef:'Al-Ahzab 59',hadith:'Modesty brings nothing but good — Agreed upon',action:'Understand hijab as honor not restriction',young:'Hijab protects and honors women! Your value is in your mind and character 🧕'},
+    fr:{title:'La Sagesse du Hijab',desc:'Le hijab est une legislation divine pour proteger et honorer les femmes. Al-Ghazali le voit comme liberant les femmes de l\'exploitation.',verse:'O Prophete, dis a tes epouses, tes filles et aux croyantes de ramener sur elles leurs grands voiles',verseRef:'Al-Ahzab 59',hadith:'La pudeur n\'apporte que du bien — Unanimement reconnu',action:'Comprenez le hijab comme un honneur, pas une restriction',young:'Le hijab protege et honore les femmes ! Ta valeur est dans ton esprit 🧕'}
   },
   {
-    id:8, emoji:'📖',
-    ar:{title:'المرأة عالمة ومعلمة',desc:'عائشة رضي الله عنها كانت من أكبر علماء الإسلام. روت أكثر من ٢٠٠٠ حديث وكان كبار الصحابة يرجعون إليها في الفتوى.',truth:'التاريخ الإسلامي مليء بالعالمات والمحدثات والفقيهات',myth:'القول بأن المرأة لا تصلح للعلم الشرعي يخالف التاريخ',action:'اقرئي عن عالمة مسلمة من التاريخ وشاركي قصتها'},
-    en:{title:'Women as Scholars and Teachers',desc:'Aisha (may God be pleased with her) was among the greatest Islamic scholars. She narrated over 2,000 hadiths and senior companions consulted her for religious rulings.',truth:'Islamic history is full of female scholars, hadith narrators, and jurists',myth:'Saying women are unfit for religious scholarship contradicts history',action:'Read about a female Muslim scholar from history and share her story'},
-    fr:{title:'La Femme Savante et Enseignante',desc:"Aisha etait parmi les plus grands savants de l'Islam. Elle a rapporte plus de 2000 hadiths et les grands compagnons la consultaient pour les avis religieux.",truth:"L'histoire islamique est pleine de savantes et juristes feminines",myth:"Dire que les femmes sont inaptes au savoir religieux contredit l'histoire",action:"Lisez sur une savante musulmane de l'histoire et partagez son recit"}
+    id:8, emoji:'🗳️',
+    ar:{title:'المشاركة السياسية',desc:'المرأة شاركت في بيعة العقبة وبايعت النبي ﷺ سياسياً. الإسلام لم يمنعها من الشورى والمشاركة في القرارات العامة.',verse:'وَالْمُؤْمِنُونَ وَالْمُؤْمِنَاتُ بَعْضُهُمْ أَوْلِيَاءُ بَعْضٍ',verseRef:'التوبة ٧١',hadith:'كلكم راع وكلكم مسؤول عن رعيته — متفق عليه',action:'شجع المرأة على المشاركة في القرارات المجتمعية',young:'المرأة شاركت في البيعة مع النبي! لها حق في القرارات 🗳️'},
+    en:{title:'Political Participation',desc:'Women participated in the Pledge of Aqaba and gave political allegiance to the Prophet. Islam did not prohibit them from consultation and public decisions.',verse:'The believing men and women are allies of one another',verseRef:'At-Tawbah 71',hadith:'Each of you is a shepherd and responsible for their flock — Agreed upon',action:'Encourage women to participate in community decisions',young:'Women participated in the pledge with the Prophet! They have a right in decisions 🗳️'},
+    fr:{title:'La Participation Politique',desc:'Les femmes ont participe au Pacte d\'Aqaba et ont prete allegeance au Prophete. L\'Islam ne leur a pas interdit les decisions publiques.',verse:'Les croyants et les croyantes sont allies les uns des autres',verseRef:'At-Tawbah 71',hadith:'Chacun est un berger et responsable de son troupeau — Unanimement reconnu',action:'Encouragez les femmes a participer aux decisions communautaires',young:'Les femmes ont participe au pacte avec le Prophete ! Elles ont le droit de decider 🗳️'}
   },
   {
-    id:9, emoji:'🤝',
-    ar:{title:'القوامة: مسؤولية لا تسلط',desc:'القوامة في الإسلام تعني المسؤولية والرعاية، لا السيطرة والتحكم. الرجل قوّام بمعنى أنه مسؤول عن النفقة والحماية.',truth:'القوامة مسؤولية على الرجل لا سلطة على المرأة',myth:'استخدام القوامة لقمع المرأة تحريف للمفهوم الإسلامي',action:'تأملي في معنى الشراكة الحقيقية في الأسرة المسلمة'},
-    en:{title:'Qiwamah: Responsibility Not Domination',desc:"Qiwamah (male guardianship) in Islam means responsibility and care, not control and domination. The man is 'qawwam' meaning he is responsible for provision and protection.",truth:'Qiwamah is a responsibility placed on men, not authority over women',myth:'Using qiwamah to oppress women distorts the Islamic concept',action:'Reflect on the meaning of true partnership in a Muslim family'},
-    fr:{title:'La Qiwamah : Responsabilite et non Domination',desc:"La qiwamah en Islam signifie responsabilite et soin, pas controle et domination. L'homme est responsable de subvenir aux besoins et de proteger.",truth:"La qiwamah est une responsabilite imposee aux hommes, pas une autorite sur les femmes",myth:"Utiliser la qiwamah pour opprimer les femmes deforme le concept islamique",action:'Reflechissez au sens du vrai partenariat dans la famille musulmane'}
+    id:9, emoji:'🏦',
+    ar:{title:'الاستقلال المالي',desc:'للمرأة ذمة مالية مستقلة تماماً عن زوجها. لها أن تملك وتبيع وتشتري. مهرها ملكها الخاص ولا يجوز لأحد أخذه بغير رضاها.',verse:'وَآتُوا النِّسَاءَ صَدُقَاتِهِنَّ نِحْلَةً',verseRef:'النساء ٤',hadith:'لا يحل مال امرئ مسلم إلا بطيب نفس — رواه أحمد',action:'احترم استقلال المرأة المالي — مالها ملكها',young:'المرأة تملك مالها بنفسها! لا أحد يأخذه بدون إذنها 🏦'},
+    en:{title:'Financial Independence',desc:'Women have completely independent financial status from their husbands. They can own, sell, buy, and trade. Their dowry is private property no one may take without consent.',verse:'And give women their dowries as a free gift',verseRef:'An-Nisa 4',hadith:'A Muslim\'s wealth is not lawful except with willing consent — Ahmad',action:'Respect women\'s financial independence — their money is their own',young:'Women own their own money! No one can take it without permission 🏦'},
+    fr:{title:'L\'Independance Financiere',desc:'Les femmes ont un statut financier completement independant de leurs maris. Elles peuvent posseder, vendre, acheter. Leur dot est leur propriete privee.',verse:'Et donnez aux femmes leurs dots de bonne grace',verseRef:'An-Nisa 4',hadith:'Les biens d\'un musulman ne sont licites qu\'avec son consentement — Ahmad',action:'Respectez l\'independance financiere des femmes',young:'Les femmes possedent leur propre argent ! Personne ne peut le prendre sans permission 🏦'}
   },
   {
-    id:10, emoji:'💔',
-    ar:{title:'الطلاق: حق لا عيب',desc:'الإسلام أعطى المرأة حق طلب الطلاق (الخلع) إذا كانت غير سعيدة في زواجها. ليس عيباً أن تطلب المرأة الانفصال إذا استحال العشرة.',truth:'المرأة لها حق الخلع إذا تعذرت الحياة الزوجية',myth:'إجبار المرأة على البقاء في زواج مؤذٍ ليس من الإسلام',action:'تعرفي على حقوقك في حالة الخلاف الزوجي'},
-    en:{title:'Divorce: A Right Not a Shame',desc:"Islam gave women the right to request divorce (khul') if unhappy in marriage. It is not shameful for a woman to seek separation when cohabitation becomes impossible.",truth:"Women have the right to khul' when marital life becomes impossible",myth:'Forcing women to stay in harmful marriages is not from Islam',action:'Learn about your rights in case of marital conflict'},
-    fr:{title:'Le Divorce : Un Droit et non une Honte',desc:"L'Islam a donne a la femme le droit de demander le divorce (khul') si elle est malheureuse dans son mariage. Il n'est pas honteux de demander la separation quand la cohabitation devient impossible.",truth:"La femme a le droit au khul' quand la vie conjugale devient impossible",myth:"Forcer les femmes a rester dans des mariages nefastes ne vient pas de l'Islam",action:'Decouvrez vos droits en cas de conflit conjugal'}
+    id:10, emoji:'👩‍👧‍👦',
+    ar:{title:'تكريم الأمومة',desc:'رفع الإسلام مكانة الأم إلى أعلى درجة. الجنة تحت أقدام الأمهات. الأم أحق الناس بحسن الصحبة ثلاث مرات قبل الأب.',verse:'وَوَصَّيْنَا الْإِنسَانَ بِوَالِدَيْهِ حَمَلَتْهُ أُمُّهُ وَهْنًا عَلَىٰ وَهْنٍ',verseRef:'لقمان ١٤',hadith:'من أحق الناس بحسن صحابتي؟ قال: أمك ثم أمك ثم أمك — متفق عليه',action:'اتصل بأمك أو أكرمها بكلمة طيبة اليوم',young:'أمك أهم شخص في حياتك! الجنة عند قدميها 👩‍👧‍👦'},
+    en:{title:'Honoring Motherhood',desc:'Islam elevated the status of mothers to the highest degree. Paradise is at their feet. The mother has the most right to good companionship, mentioned three times before the father.',verse:'We enjoined upon man regarding his parents — his mother carried him in weakness upon weakness',verseRef:'Luqman 14',hadith:'Who is most deserving of my good companionship? He said: Your mother, then your mother, then your mother — Agreed upon',action:'Call your mother or honor her with a kind word today',young:'Your mother is the most important person! Paradise is at her feet 👩‍👧‍👦'},
+    fr:{title:'L\'Honneur de la Maternite',desc:'L\'Islam a eleve le statut des meres au plus haut degre. Le Paradis est a leurs pieds. La mere a le plus droit a la bonne compagnie, trois fois avant le pere.',verse:'Nous avons recommande a l\'homme ses parents — sa mere l\'a porte dans la faiblesse',verseRef:'Luqman 14',hadith:'Qui merite le plus ma bonne compagnie ? Ta mere, puis ta mere, puis ta mere — Unanimement reconnu',action:'Appelez votre mere ou honorez-la avec un bon mot aujourd\'hui',young:'Ta mere est la personne la plus importante ! Le Paradis est a ses pieds 👩‍👧‍👦'}
   },
   {
-    id:11, emoji:'🗳️',
-    ar:{title:'المرأة والشورى',desc:'النساء شاركن في بيعة العقبة وبيعة الرضوان. الإسلام أعطى المرأة حق إبداء الرأي في الشؤون العامة منذ البداية.',truth:'مشاركة المرأة في القرار السياسي أصل إسلامي',myth:'منع المرأة من إبداء الرأي ليس من الإسلام',action:'عبري عن رأيك في قضية تهمك اليوم'},
-    en:{title:'Women and Consultation',desc:'Women participated in the pledges of Aqaba and Ridwan. Islam gave women the right to voice their opinion in public affairs from the very beginning.',truth:"Women's participation in political decision-making is an Islamic principle",myth:'Preventing women from voicing opinions is not from Islam',action:'Express your opinion on an issue that matters to you today'},
-    fr:{title:'La Femme et la Consultation',desc:"Les femmes ont participe aux serments d'Aqaba et de Ridwan. L'Islam a donne a la femme le droit d'exprimer son opinion dans les affaires publiques des le debut.",truth:'La participation des femmes aux decisions politiques est un principe islamique',myth:"Empecher les femmes d'exprimer leur avis ne vient pas de l'Islam",action:"Exprimez votre opinion sur une question qui vous tient a coeur aujourd'hui"}
+    id:11, emoji:'📚',
+    ar:{title:'عالمات في التاريخ',desc:'التاريخ الإسلامي مليء بالعالمات: عائشة روت آلاف الأحاديث، فاطمة الفهرية أسست أول جامعة، أم الدرداء درّست الفقه.',verse:'يَرْفَعِ اللَّهُ الَّذِينَ آمَنُوا مِنكُمْ وَالَّذِينَ أُوتُوا الْعِلْمَ دَرَجَاتٍ',verseRef:'المجادلة ١١',hadith:'خذوا نصف دينكم عن هذه الحميراء — رواه الحاكم',action:'ابحث عن عالمة مسلمة في التاريخ وشارك قصتها',young:'فاطمة الفهرية أسست أول جامعة في العالم! 📚'},
+    en:{title:'Women Scholars in History',desc:'Islamic history is full of women scholars: Aisha narrated thousands of hadiths, Fatima al-Fihri founded the first university, Umm al-Darda taught jurisprudence.',verse:'God will raise those who believe and those who have been given knowledge by degrees',verseRef:'Al-Mujadilah 11',hadith:'Take half your religion from this Humayra (meaning Aisha) — al-Hakim',action:'Research a Muslim woman scholar in history and share her story',young:'Fatima al-Fihri founded the first university in the world! 📚'},
+    fr:{title:'Les Femmes Savantes',desc:'L\'histoire islamique est pleine de femmes savantes : Aisha a rapporte des milliers de hadiths, Fatima al-Fihri a fonde la premiere universite.',verse:'Dieu elevera ceux qui croient et ceux qui ont recu la science de plusieurs degres',verseRef:'Al-Mujadilah 11',hadith:'Prenez la moitie de votre religion de cette Humayra (Aisha) — al-Hakim',action:'Recherchez une femme savante musulmane et partagez son histoire',young:'Fatima al-Fihri a fonde la premiere universite au monde ! 📚'}
   },
   {
-    id:12, emoji:'🕌',
-    ar:{title:'المرأة والمسجد',desc:'النبي ﷺ قال: "لا تمنعوا إماء الله مساجد الله". منع المرأة من المسجد مخالف للسنة النبوية الصريحة.',truth:'حضور المرأة للمسجد حق شرعي لا يجوز منعه',myth:'منع النساء من المساجد عادة مخالفة للسنة',action:'إذا كنتِ قريبة من مسجد يسمح للنساء، احضري صلاة أو درساً'},
-    en:{title:'Women and the Mosque',desc:'The Prophet (peace be upon him) said: "Do not prevent the female servants of God from the mosques of God." Preventing women from mosques contradicts the explicit prophetic tradition.',truth:"Women's attendance at mosques is a right that should not be denied",myth:'Banning women from mosques is a custom that contradicts the Sunnah',action:'If you are near a mosque that welcomes women, attend a prayer or lesson'},
-    fr:{title:'La Femme et la Mosquee',desc:"Le Prophete a dit : N'empecchez pas les servantes de Dieu d'aller aux mosquees de Dieu. Empecher les femmes d'aller a la mosquee contredit la tradition prophetique explicite.",truth:"La frequentation des mosquees par les femmes est un droit qui ne doit pas etre refuse",myth:"Interdire aux femmes les mosquees est une coutume contraire a la Sunnah",action:'Si vous etes pres d\'une mosquee qui accueille les femmes, assistez a une priere ou un cours'}
+    id:12, emoji:'🏠',
+    ar:{title:'حق التملك',desc:'المرأة في الإسلام لها حق كامل في التملك والتصرف بأموالها. لا يحق لزوجها أو أبيها التحكم في ممتلكاتها.',verse:'لِلرِّجَالِ نَصِيبٌ مِّمَّا اكْتَسَبُوا وَلِلنِّسَاءِ نَصِيبٌ مِّمَّا اكْتَسَبْنَ',verseRef:'النساء ٣٢',hadith:'لا يحل مال امرئ مسلم إلا بطيب نفس — رواه الدارقطني',action:'تعرّف على حقوق المرأة المالية في الإسلام',young:'المرأة تملك بيتها ومالها بنفسها! حق كامل منذ ١٤٠٠ سنة 🏠'},
+    en:{title:'Property Rights',desc:'Women in Islam have full rights to own and manage their wealth. Neither husband nor father may control her property.',verse:'For men is a share of what they earned and for women is a share of what they earned',verseRef:'An-Nisa 32',hadith:'A Muslim\'s wealth is not lawful except with willing consent — al-Daraqutni',action:'Learn about women\'s financial rights in Islam',young:'Women own their house and money! A full right for 1400 years 🏠'},
+    fr:{title:'Les Droits de Propriete',desc:'Les femmes en Islam ont le plein droit de posseder et gerer leurs biens. Ni le mari ni le pere ne peuvent controler sa propriete.',verse:'Aux hommes une part de ce qu\'ils ont acquis et aux femmes une part',verseRef:'An-Nisa 32',hadith:'Les biens d\'un musulman ne sont licites qu\'avec son consentement — al-Daraqutni',action:'Decouvrez les droits financiers des femmes en Islam',young:'Les femmes possedent leur maison et leur argent ! Un droit depuis 1400 ans 🏠'}
   },
   {
-    id:13, emoji:'👩‍⚕️',
-    ar:{title:'المرأة في الطب والعلوم',desc:'رفيدة الأسلمية أسست أول مستشفى ميداني في الإسلام. نساء كثيرات عملن في الطب والجراحة والصيدلة في الحضارة الإسلامية.',truth:'المرأة المسلمة ساهمت في العلوم والطب عبر التاريخ',myth:'حصر دور المرأة في المنزل فقط ليس من الإسلام',action:'ابحثي عن عالمة مسلمة في مجال العلوم وتعرفي على إنجازاتها'},
-    en:{title:'Women in Medicine and Sciences',desc:'Rufaydah al-Aslamiyyah established the first field hospital in Islam. Many women worked in medicine, surgery, and pharmacy in Islamic civilization.',truth:'Muslim women contributed to science and medicine throughout history',myth:"Restricting women's role to home only is not from Islam",action:'Research a Muslim woman scientist and learn about her achievements'},
-    fr:{title:'La Femme dans la Medecine et les Sciences',desc:"Rufaydah al-Aslamiyyah a fonde le premier hopital de campagne en Islam. De nombreuses femmes ont travaille dans la medecine et la pharmacie dans la civilisation islamique.",truth:"Les femmes musulmanes ont contribue aux sciences et a la medecine a travers l'histoire",myth:"Restreindre le role de la femme a la maison uniquement ne vient pas de l'Islam",action:'Recherchez une scientifique musulmane et decouvrez ses realisations'}
+    id:13, emoji:'🚫',
+    ar:{title:'رفض العنف الأسري',desc:'الإسلام حرّم الظلم بكل أشكاله. النبي ﷺ لم يضرب امرأة قط. الغزالي ينتقد بشدة من يستخدم الدين لتبرير العنف.',verse:'وَعَاشِرُوهُنَّ بِالْمَعْرُوفِ',verseRef:'النساء ١٩',hadith:'خيركم خيركم لأهله وأنا خيركم لأهلي — رواه الترمذي',action:'قف ضد كل أشكال العنف الأسري',young:'النبي لم يؤذِ امرأة أبداً! كن لطيفاً مع عائلتك 🚫'},
+    en:{title:'Rejecting Domestic Violence',desc:'Islam prohibited injustice in all its forms. The Prophet never struck a woman. Al-Ghazali strongly criticizes using religion to justify violence.',verse:'And live with them in kindness',verseRef:'An-Nisa 19',hadith:'The best of you is the best to his family, and I am the best to my family — al-Tirmidhi',action:'Stand against all forms of domestic violence',young:'The Prophet never hurt a woman! Always be kind to your family 🚫'},
+    fr:{title:'Rejeter la Violence Domestique',desc:'L\'Islam a interdit l\'injustice sous toutes ses formes. Le Prophete n\'a jamais frappe une femme. Al-Ghazali critique ceux qui utilisent la religion pour justifier la violence.',verse:'Et vivez avec elles dans la bonte',verseRef:'An-Nisa 19',hadith:'Le meilleur est celui qui est le meilleur envers sa famille — al-Tirmidhi',action:'Opposez-vous a toute forme de violence domestique',young:'Le Prophete n\'a jamais fait de mal a une femme ! Sois gentil avec ta famille 🚫'}
   },
   {
-    id:14, emoji:'🎓',
-    ar:{title:'تعدد الزوجات: الاستثناء لا القاعدة',desc:'الغزالي يوضح أن تعدد الزوجات في الإسلام مشروط بالعدل التام، وهو استثناء لا قاعدة. الآية نفسها تقول "فإن خفتم ألا تعدلوا فواحدة".',truth:'التعدد مشروط بالعدل المطلق والقدرة، وهو استثناء',myth:'القول بأن التعدد حق مطلق للرجل يتجاهل شروطه الصارمة',action:'اقرئي الآية ٣ من سورة النساء بتدبر مع تفسيرها'},
-    en:{title:'Polygamy: Exception Not Rule',desc:'Al-Ghazali explains that polygamy in Islam is conditioned on absolute justice, and is an exception not a rule. The verse itself says "if you fear you cannot be just, then only one."',truth:'Polygamy is conditioned on absolute justice and ability, and is an exception',myth:"Claiming polygamy is an absolute right for men ignores its strict conditions",action:'Read verse 3 of Surah An-Nisa with reflection and its commentary'},
-    fr:{title:'La Polygamie : Exception et non Regle',desc:"Al-Ghazali explique que la polygamie en Islam est conditionnee par la justice absolue, et est une exception pas une regle. Le verset dit lui-meme : si vous craignez de ne pas etre justes, alors une seule.",truth:"La polygamie est conditionnee par la justice absolue et est une exception",myth:'Affirmer que la polygamie est un droit absolu pour les hommes ignore ses conditions strictes',action:'Lisez le verset 3 de la sourate An-Nisa avec reflexion et son commentaire'}
+    id:14, emoji:'👶',
+    ar:{title:'حق الحضانة',desc:'الأم أولى بحضانة أطفالها عند الطلاق ما لم تتزوج. حق الأم في أطفالها مقدم في الشريعة.',verse:'وَالْوَالِدَاتُ يُرْضِعْنَ أَوْلَادَهُنَّ حَوْلَيْنِ كَامِلَيْنِ',verseRef:'البقرة ٢٣٣',hadith:'أنتِ أحق به ما لم تنكحي — رواه أبو داود',action:'ادعم حق الأمهات في حضانة أطفالهن',young:'الأم أحق بأطفالها! النبي حفظ حقها 👶'},
+    en:{title:'Custody Rights',desc:'The mother has priority in custody after divorce as long as she does not remarry. The mother\'s right to her children is prioritized in Sharia.',verse:'Mothers shall breastfeed their children for two complete years',verseRef:'Al-Baqarah 233',hadith:'You have more right to him as long as you do not remarry — Abu Dawud',action:'Support mothers\' custody rights after divorce',young:'Mothers have priority for their children! The Prophet preserved her right 👶'},
+    fr:{title:'Les Droits de Garde',desc:'La mere a la priorite de garde apres le divorce tant qu\'elle ne se remarie pas. Le droit de la mere est prioritaire en charia.',verse:'Les meres allaiteront leurs enfants deux annees completes',verseRef:'Al-Baqarah 233',hadith:'Tu as plus de droit sur lui tant que tu ne te remaries pas — Abu Dawud',action:'Soutenez le droit des meres a la garde de leurs enfants',young:'Les meres ont la priorite pour leurs enfants ! 👶'}
   },
   {
-    id:15, emoji:'🌺',
-    ar:{title:'تكريم الأمومة',desc:'الإسلام رفع مكانة الأم إلى أعلى المراتب. "الجنة تحت أقدام الأمهات" و"أمك ثم أمك ثم أمك ثم أبوك". الأمومة ليست ضعفاً بل هي أعظم مسؤولية.',truth:'الأمومة في الإسلام أشرف وأعلى المسؤوليات',myth:'اعتبار الأمومة عبئاً أو تقليلاً من قيمة المرأة فكرة دخيلة',action:'اتصلي بأمك اليوم واشكريها أو ادعي لها إن لم تكن معك'},
-    en:{title:'Honoring Motherhood',desc:'Islam elevated the status of mothers to the highest ranks. "Paradise lies under the feet of mothers" and "Your mother, then your mother, then your mother, then your father." Motherhood is not weakness but the greatest responsibility.',truth:'Motherhood in Islam is the most honored responsibility',myth:'Considering motherhood a burden or diminishing of women is a foreign concept',action:'Call your mother today and thank her, or pray for her if she has passed'},
-    fr:{title:"L'Honneur de la Maternite",desc:"L'Islam a eleve le statut des meres au plus haut rang. Le Paradis est sous les pieds des meres et Votre mere, puis votre mere, puis votre mere, puis votre pere. La maternite n'est pas une faiblesse mais la plus grande responsabilite.",truth:"La maternite en Islam est la responsabilite la plus honoree",myth:"Considerer la maternite comme un fardeau est un concept etranger",action:"Appelez votre mere aujourd'hui et remerciez-la, ou priez pour elle"}
+    id:15, emoji:'📋',
+    ar:{title:'التعدد في سياقه',desc:'تعدد الزوجات مشروط بالعدل التام، وهو استثناء لا قاعدة. الغزالي يؤكد أن كثيراً يسيئون فهم هذا التشريع ويتجاهلون شرط العدل.',verse:'فَإِنْ خِفْتُمْ أَلَّا تَعْدِلُوا فَوَاحِدَةً',verseRef:'النساء ٣',hadith:'من كانت له امرأتان فمال إلى إحداهما جاء يوم القيامة وشقه مائل — رواه أبو داود',action:'افهم شروط التعدد الصارمة قبل أن تحكم',young:'العدل شرط أساسي! إذا لم يستطع الرجل العدل فواحدة فقط 📋'},
+    en:{title:'Polygamy in Context',desc:'Polygamy is conditioned on complete justice, and is the exception not the rule. Al-Ghazali emphasizes many misunderstand this and ignore the justice condition.',verse:'But if you fear you will not be just, then only one',verseRef:'An-Nisa 3',hadith:'Whoever has two wives and leans to one will come on Judgment Day leaning — Abu Dawud',action:'Understand the strict conditions before judging',young:'Justice is essential! If a man cannot be fair, then only one wife 📋'},
+    fr:{title:'La Polygamie en Contexte',desc:'La polygamie est conditionnee par une justice complete, c\'est l\'exception. Al-Ghazali souligne que beaucoup comprennent mal et ignorent la condition de justice.',verse:'Si vous craignez de ne pas etre justes, alors une seule',verseRef:'An-Nisa 3',hadith:'Celui qui a deux epouses et penche vers l\'une viendra le Jour du Jugement penche — Abu Dawud',action:'Comprenez les conditions strictes avant de juger',young:'La justice est essentielle ! Si un homme ne peut etre juste, une seule epouse 📋'}
   },
   {
-    id:16, emoji:'🛡️',
-    ar:{title:'حماية المرأة من العنف',desc:'الإسلام حرّم الإيذاء والضرب والإهانة. النبي ﷺ لم يضرب امرأة قط وقال: "خيركم خيركم لأهله". العنف الأسري مرفوض شرعاً.',truth:'الإسلام يحرم الإيذاء الجسدي والمعنوي للمرأة',myth:'استخدام الدين لتبرير العنف ضد المرأة تحريف',action:'إذا عرفتِ شخصاً يتعرض للعنف، شجعيه على طلب المساعدة'},
-    en:{title:'Protecting Women from Violence',desc:'Islam forbids harm, beating, and humiliation. The Prophet (peace be upon him) never struck a woman and said: "The best of you are the best to their families." Domestic violence is rejected by Islamic law.',truth:'Islam forbids physical and emotional harm against women',myth:'Using religion to justify violence against women is a distortion',action:'If you know someone experiencing violence, encourage them to seek help'},
-    fr:{title:'Proteger la Femme de la Violence',desc:"L'Islam interdit le mal, les coups et l'humiliation. Le Prophete n'a jamais frappe une femme et a dit : Les meilleurs d'entre vous sont les meilleurs envers leur famille. La violence domestique est rejetee par la loi islamique.",truth:"L'Islam interdit le mal physique et emotionnel envers les femmes",myth:'Utiliser la religion pour justifier la violence est une deformation',action:'Si vous connaissez quelqu\'un qui subit la violence, encouragez-le a chercher de l\'aide'}
+    id:16, emoji:'🎤',
+    ar:{title:'شهادة المرأة',desc:'شهادة المرأة ليست أقل قيمة. آية الدَّين تتحدث عن حالة خاصة. في قضايا أخرى شهادتها مساوية. الغزالي يصحح هذا الفهم الخاطئ.',verse:'وَاسْتَشْهِدُوا شَهِيدَيْنِ مِن رِّجَالِكُمْ',verseRef:'البقرة ٢٨٢',hadith:'خذوا نصف دينكم عن الحميراء — رواه الحاكم',action:'ادرس موضوع الشهادة بعمق بعيداً عن الأحكام المسبقة',young:'شهادة المرأة مقبولة ومهمة! عائشة كانت مرجعاً للجميع 🎤'},
+    en:{title:'Women\'s Testimony',desc:'Women\'s testimony is not of lesser value. The debt verse addresses a specific case. In other matters women\'s testimony is equal. Al-Ghazali corrects this misconception.',verse:'And bring two witnesses from among your men',verseRef:'Al-Baqarah 282',hadith:'Take half your religion from Humayra (Aisha) — al-Hakim',action:'Study the topic of testimony deeply, beyond preconceptions',young:'Women\'s testimony is accepted and important! Aisha was a reference for all 🎤'},
+    fr:{title:'Le Temoignage des Femmes',desc:'Le temoignage des femmes n\'est pas de moindre valeur. Le verset de la dette traite d\'un cas specifique. Al-Ghazali corrige cette idee fausse.',verse:'Et faites temoigner deux temoins parmi vos hommes',verseRef:'Al-Baqarah 282',hadith:'Prenez la moitie de votre religion de Humayra (Aisha) — al-Hakim',action:'Etudiez le sujet du temoignage en profondeur',young:'Le temoignage des femmes est accepte et important ! 🎤'}
   },
   {
-    id:17, emoji:'🌍',
-    ar:{title:'التقاليد الراكدة',desc:'الغزالي ينتقد التقاليد المتحجرة التي ظلمت المرأة باسم الدين. كثير مما يُنسب للإسلام هو في الحقيقة عادات جاهلية أو ثقافات محلية لا علاقة لها بالشريعة.',truth:'كثير من القيود على المرأة مصدرها التقاليد لا الدين',myth:'الخلط بين العادات الموروثة والدين الصحيح خطأ شائع',action:'فكري في عادة محلية تُنسب للدين — هل لها أصل شرعي فعلاً؟'},
-    en:{title:'Stagnant Traditions',desc:'Al-Ghazali criticizes rigid traditions that oppressed women in the name of religion. Much of what is attributed to Islam is actually pre-Islamic customs or local cultures unrelated to Islamic law.',truth:'Many restrictions on women come from traditions, not religion',myth:'Confusing inherited customs with true religion is a common error',action:'Think of a local custom attributed to religion — does it have an actual Islamic basis?'},
-    fr:{title:'Les Traditions Stagnantes',desc:"Al-Ghazali critique les traditions rigides qui ont opprime les femmes au nom de la religion. Beaucoup de ce qui est attribue a l'Islam est en fait des coutumes pre-islamiques sans rapport avec la loi islamique.",truth:'De nombreuses restrictions sur les femmes viennent des traditions, pas de la religion',myth:'Confondre coutumes heritees et vraie religion est une erreur courante',action:'Pensez a une coutume locale attribuee a la religion — a-t-elle une base islamique reelle ?'}
+    id:17, emoji:'👑',
+    ar:{title:'المرأة والقيادة',desc:'المرأة قادت أمماً في القرآن: بلقيس ملكة سبأ أدارت مملكة بحكمة. الغزالي لا يمنع المرأة من المناصب القيادية إذا كانت مؤهلة.',verse:'إِنِّي وَجَدتُّ امْرَأَةً تَمْلِكُهُمْ وَأُوتِيَتْ مِن كُلِّ شَيْءٍ وَلَهَا عَرْشٌ عَظِيمٌ',verseRef:'النمل ٢٣',hadith:'إن الله لا ينظر إلى صوركم ولكن ينظر إلى قلوبكم وأعمالكم — رواه مسلم',action:'ادعم قيادة المرأة المؤهلة في كل المجالات',young:'بلقيس كانت ملكة حكيمة! المرأة يمكنها أن تقود 👑'},
+    en:{title:'Women and Leadership',desc:'Women led nations in the Quran: Bilqis, Queen of Sheba, managed a kingdom wisely. Al-Ghazali does not prohibit women from leadership if qualified.',verse:'I found a woman ruling them, given everything, and she has a great throne',verseRef:'An-Naml 23',hadith:'God does not look at appearances but at hearts and deeds — Muslim',action:'Support qualified women\'s leadership in all fields',young:'Bilqis was a wise queen! Women can lead successfully 👑'},
+    fr:{title:'La Femme et le Leadership',desc:'Les femmes ont dirige des nations dans le Coran : Bilqis, Reine de Saba, a gere un royaume avec sagesse. Al-Ghazali ne l\'interdit pas aux femmes qualifiees.',verse:'J\'ai trouve une femme qui les gouverne, dotee de tout, avec un grand trone',verseRef:'An-Naml 23',hadith:'Dieu ne regarde pas les apparences mais les coeurs et les actes — Muslim',action:'Soutenez le leadership des femmes qualifiees',young:'Bilqis etait une reine sage ! Les femmes peuvent diriger 👑'}
   },
   {
-    id:18, emoji:'📱',
-    ar:{title:'التقاليد الوافدة',desc:'الغزالي ينتقد أيضاً الأفكار الوافدة التي تريد تحرير المرأة من دينها وأخلاقها. التحرر الحقيقي يكون بالعلم والإيمان لا بالتقليد الأعمى للغرب.',truth:'التحرر الحقيقي بالعلم والإيمان لا بتقليد كل ما هو غربي',myth:'ليس كل ما يأتي من الغرب تقدماً ولا كل ما عندنا تخلفاً',action:'ميزي بين الحقوق الحقيقية والموضات الثقافية'},
-    en:{title:'Imported Traditions',desc:"Al-Ghazali also criticizes imported ideas that seek to liberate women from their religion and morals. True liberation comes through knowledge and faith, not blind imitation of the West.",truth:'True liberation is through knowledge and faith, not blind Western imitation',myth:'Not everything from the West is progress, nor everything from us is backwardness',action:'Distinguish between genuine rights and cultural trends'},
-    fr:{title:'Les Traditions Importees',desc:"Al-Ghazali critique aussi les idees importees qui cherchent a liberer la femme de sa religion et de sa morale. La vraie liberation vient par le savoir et la foi, pas l'imitation aveugle de l'Occident.",truth:"La vraie liberation est par le savoir et la foi, pas l'imitation aveugle de l'Occident",myth:"Tout ce qui vient de l'Occident n'est pas progres, et tout ce qui est chez nous n'est pas retard",action:'Distinguez entre droits authentiques et tendances culturelles'}
+    id:18, emoji:'🌐',
+    ar:{title:'تحديات العصر الحديث',desc:'تواجه المرأة المسلمة ضغوطاً من طرفين: التقاليد الجامدة التي تحرمها حقوقها، والثقافة الوافدة التي تريد تغريبها. الحل في الإسلام الصحيح.',verse:'وَلَا تَقْفُ مَا لَيْسَ لَكَ بِهِ عِلْمٌ',verseRef:'الإسراء ٣٦',hadith:'إن الله لا يقبض العلم انتزاعاً ولكن بقبض العلماء — متفق عليه',action:'ميّز بين العادات والتقاليد وبين أحكام الإسلام الحقيقية',young:'لا تخلط بين العادات القديمة والإسلام الحقيقي! 🌐'},
+    en:{title:'Modern Challenges',desc:'Muslim women face pressure from two sides: rigid traditions denying rights, and foreign culture seeking westernization. The solution is returning to true Islam.',verse:'And do not pursue that of which you have no knowledge',verseRef:'Al-Isra 36',hadith:'God does not remove knowledge by snatching it but by taking scholars — Agreed upon',action:'Distinguish between customs and true Islamic rulings',young:'Do not confuse old customs with true Islam! 🌐'},
+    fr:{title:'Les Defis Modernes',desc:'Les femmes musulmanes font face a des pressions de deux cotes : traditions rigides et culture etrangere. La solution est le retour au vrai Islam.',verse:'Et ne poursuis pas ce dont tu n\'as aucune connaissance',verseRef:'Al-Isra 36',hadith:'Dieu ne retire pas la science en l\'arrachant mais en prenant les savants — Unanimement reconnu',action:'Distinguez entre les coutumes et les vrais jugements de l\'Islam',young:'Ne confonds pas les vieilles coutumes avec le vrai Islam ! 🌐'}
   },
   {
-    id:19, emoji:'👨‍👩‍👧',
-    ar:{title:'الأسرة شراكة متكاملة',desc:'الأسرة في الإسلام مبنية على المودة والرحمة والشراكة. الزوجان يكملان بعضهما لا يتنافسان. "هن لباس لكم وأنتم لباس لهن".',truth:'العلاقة الزوجية في الإسلام قائمة على التكامل والمودة',myth:'تحويل الأسرة إلى ساحة صراع بين الجنسين مرفوض',action:'مارسي الشكر مع أفراد أسرتك اليوم — كلمة طيبة تصنع فرقاً'},
-    en:{title:'Family as a Complete Partnership',desc:'The family in Islam is built on affection, mercy, and partnership. Spouses complete each other, not compete. "They are garments for you and you are garments for them."',truth:'The marital relationship in Islam is based on complementarity and affection',myth:'Turning the family into a gender battleground is rejected',action:'Practice gratitude with your family today — a kind word makes a difference'},
-    fr:{title:'La Famille comme Partenariat Complet',desc:"La famille en Islam est construite sur l'affection, la misericorde et le partenariat. Les epoux se completent, ils ne sont pas en competition. Elles sont un vetement pour vous et vous etes un vetement pour elles.",truth:"La relation conjugale en Islam est basee sur la complementarite et l'affection",myth:'Transformer la famille en champ de bataille entre les sexes est rejete',action:"Pratiquez la gratitude avec votre famille aujourd'hui — un mot gentil fait la difference"}
+    id:19, emoji:'🤝',
+    ar:{title:'المساواة في العبادة',desc:'المرأة والرجل متساويان أمام الله في العبادة والأجر. لا فرق في التقوى والعمل الصالح. الله لا يضيع عمل عامل ذكراً أو أنثى.',verse:'فَاسْتَجَابَ لَهُمْ رَبُّهُمْ أَنِّي لَا أُضِيعُ عَمَلَ عَامِلٍ مِّنكُم مِّن ذَكَرٍ أَوْ أُنثَىٰ',verseRef:'آل عمران ١٩٥',hadith:'إنما النساء شقائق الرجال — رواه أبو داود',action:'تذكر أن الله يكافئ الجميع بالتساوي',young:'الله يحب الجميع بالتساوي! لا فرق في العبادة 🤝'},
+    en:{title:'Equality in Worship',desc:'Women and men are completely equal before God in worship and reward. No difference in piety and good deeds. God does not waste the work of any worker.',verse:'Their Lord responded: I do not waste the work of any worker among you, male or female',verseRef:'Al Imran 195',hadith:'Women are the twin halves of men — Abu Dawud',action:'Remember God rewards everyone equally — males and females',young:'God loves everyone equally! No difference in worship 🤝'},
+    fr:{title:'L\'Egalite dans l\'Adoration',desc:'Les femmes et les hommes sont egaux devant Dieu dans l\'adoration et la recompense. Pas de difference dans la piete.',verse:'Leur Seigneur repondit : Je ne perds pas l\'oeuvre d\'un ouvrier, homme ou femme',verseRef:'Al Imran 195',hadith:'Les femmes sont les moities jumelles des hommes — Abu Dawud',action:'Rappelez-vous que Dieu recompense egalement',young:'Dieu aime tout le monde egalement ! Pas de difference 🤝'}
   },
   {
-    id:20, emoji:'🌟',
-    ar:{title:'المرأة المسلمة: أمل الأمة',desc:'الغزالي يختم بأن نهضة الأمة لا تكتمل بدون نهضة المرأة. تعليمها وتمكينها وإعادة حقوقها الإسلامية واجب على المجتمع كله.',truth:'نهضة الأمة تبدأ بتعليم المرأة وتمكينها',myth:'تهميش نصف المجتمع ثم انتظار النهضة تناقض',action:'شاركي هذا التطبيق مع شخص يحتاج لمعرفة حقوق المرأة في الإسلام'},
-    en:{title:"Muslim Women: The Nation's Hope",desc:"Al-Ghazali concludes that the nation's revival is incomplete without women's revival. Educating, empowering women and restoring their Islamic rights is a duty upon all society.",truth:"The nation's revival starts with educating and empowering women",myth:'Marginalizing half of society then expecting revival is a contradiction',action:"Share this app with someone who needs to know about women's rights in Islam"},
-    fr:{title:'La Femme Musulmane : Espoir de la Nation',desc:"Al-Ghazali conclut que le renouveau de la nation est incomplet sans le renouveau des femmes. Eduquer et autonomiser les femmes et restaurer leurs droits islamiques est un devoir pour toute la societe.",truth:'Le renouveau de la nation commence par l\'education et l\'autonomisation des femmes',myth:'Marginaliser la moitie de la societe puis attendre le renouveau est une contradiction',action:'Partagez cette application avec quelqu\'un qui a besoin de connaitre les droits de la femme en Islam'}
+    id:20, emoji:'🌸',
+    ar:{title:'التكامل لا التنافس',desc:'العلاقة بين الرجل والمرأة تكاملية لا تنافسية. كل منهما يكمل الآخر. الأسرة القوية تُبنى على التعاون والمودة والرحمة.',verse:'وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُم مِّنْ أَنفُسِكُمْ أَزْوَاجًا لِّتَسْكُنُوا إِلَيْهَا وَجَعَلَ بَيْنَكُم مَّوَدَّةً وَرَحْمَةً',verseRef:'الروم ٢١',hadith:'خيركم خيركم لأهله — رواه الترمذي',action:'ابنِ علاقاتك على التكامل والمودة',young:'الرجل والمرأة فريق واحد! كل منهما يكمل الآخر بمحبة 🌸'},
+    en:{title:'Complementary Not Competitive',desc:'The relationship between men and women is complementary, not competitive. Each completes the other. A strong family is built on cooperation, affection, and mercy.',verse:'Among His signs is that He created mates for you that you may find tranquility, and He placed affection and mercy between you',verseRef:'Ar-Rum 21',hadith:'The best of you is the best to his family — al-Tirmidhi',action:'Build your relationships on complementarity and affection',young:'Men and women are one team! Each completes the other with love 🌸'},
+    fr:{title:'Complementaires, Pas en Competition',desc:'La relation entre hommes et femmes est complementaire. Chacun complete l\'autre. Une famille forte se construit sur la cooperation, l\'affection et la misericorde.',verse:'Parmi Ses signes, Il a cree des epouses pour la tranquillite, et Il a mis affection et misericorde entre vous',verseRef:'Ar-Rum 21',hadith:'Le meilleur est celui qui est le meilleur envers sa famille — al-Tirmidhi',action:'Construisez vos relations sur la complementarite et l\'affection',young:'Les hommes et les femmes sont une equipe ! Chacun complete l\'autre 🌸'}
   }
 ];
 
-// ═══════════════ HEROINES DATA ═══════════════
-const HEROINES = [
-  {emoji:'👑', ar:{name:'خديجة بنت خويلد',role:'أول من آمن بالنبي ﷺ وسيدة أعمال ناجحة',story:'أول مسلمة في التاريخ، زوجة النبي ﷺ وأم المؤمنين. كانت تاجرة ثرية ناجحة قبل الإسلام. دعمت النبي ﷺ بمالها ونفسها.'}, en:{name:'Khadijah bint Khuwaylid',role:'First believer and successful businesswoman',story:'The first Muslim in history, wife of the Prophet and Mother of the Believers. She was a wealthy and successful trader before Islam.'}, fr:{name:'Khadijah bint Khuwaylid',role:'Premiere croyante et femme d\'affaires prospere',story:'La premiere musulmane de l\'histoire, epouse du Prophete et Mere des Croyants. Elle etait une commercante riche et prospere avant l\'Islam.'}},
-  {emoji:'📚', ar:{name:'عائشة بنت أبي بكر',role:'أعظم عالمة في التاريخ الإسلامي',story:'روت أكثر من ٢٠٠٠ حديث. كان الصحابة يرجعون إليها في الفتوى. عُرفت بذكائها وفصاحتها.'}, en:{name:'Aisha bint Abu Bakr',role:'Greatest female scholar in Islamic history',story:'She narrated over 2,000 hadiths. The companions consulted her for religious rulings. Known for her intelligence and eloquence.'}, fr:{name:'Aisha bint Abu Bakr',role:'Plus grande savante de l\'histoire islamique',story:'Elle a rapporte plus de 2000 hadiths. Les compagnons la consultaient pour les avis religieux. Connue pour son intelligence et son eloquence.'}},
-  {emoji:'🏥', ar:{name:'رفيدة الأسلمية',role:'أول طبيبة ميدانية في الإسلام',story:'أسست أول مستشفى ميداني في غزوة الخندق. كانت تعالج الجرحى وتدرب النساء على التمريض.'}, en:{name:'Rufaydah al-Aslamiyyah',role:'First field doctor in Islam',story:'She established the first field hospital during the Battle of the Trench. She treated the wounded and trained women in nursing.'}, fr:{name:'Rufaydah al-Aslamiyyah',role:'Premiere medecin de terrain en Islam',story:'Elle a fonde le premier hopital de campagne pendant la Bataille de la Tranchee. Elle soignait les blesses et formait les femmes aux soins infirmiers.'}},
-  {emoji:'⚔️', ar:{name:'نسيبة بنت كعب',role:'مقاتلة شجاعة في غزوة أحد',story:'قاتلت دفاعاً عن النبي ﷺ في غزوة أحد وأُصيبت بـ ١٢ جرحاً. من أشجع نساء التاريخ الإسلامي.'}, en:{name:'Nusaybah bint Ka\'b',role:'Brave warrior at the Battle of Uhud',story:'She fought defending the Prophet at the Battle of Uhud and sustained 12 wounds. One of the bravest women in Islamic history.'}, fr:{name:'Nusaybah bint Ka\'b',role:'Guerriere courageuse a la Bataille d\'Uhud',story:'Elle a combattu pour defendre le Prophete a la Bataille d\'Uhud et a subi 12 blessures. L\'une des femmes les plus courageuses de l\'histoire islamique.'}},
-  {emoji:'🕊️', ar:{name:'فاطمة الزهراء',role:'سيدة نساء أهل الجنة',story:'ابنة النبي ﷺ وأحب الناس إليه. عُرفت بالزهد والعبادة والبلاغة. دافعت عن حقها بفصاحة.'}, en:{name:'Fatimah az-Zahra',role:'Leader of the women of Paradise',story:'Daughter of the Prophet and dearest to him. Known for her piety, worship, and eloquence. She defended her rights with clarity.'}, fr:{name:'Fatimah az-Zahra',role:'Maitresse des femmes du Paradis',story:'Fille du Prophete et la plus chere a son coeur. Connue pour sa piete, son adoration et son eloquence. Elle a defendu ses droits avec clarte.'}},
-  {emoji:'🏛️', ar:{name:'الشفاء بنت عبد الله',role:'أول وزيرة في الإسلام — ولّاها عمر على السوق',story:'عيّنها عمر بن الخطاب على حسبة سوق المدينة. كانت معلمة وكاتبة ومسؤولة إدارية.'}, en:{name:'Ash-Shifa bint Abdullah',role:'First female minister — appointed by Umar to oversee the market',story:'Umar ibn al-Khattab appointed her to oversee the market of Medina. She was a teacher, writer, and administrative official.'}, fr:{name:'Ash-Shifa bint Abdullah',role:'Premiere ministre feminine — nommee par Omar pour superviser le marche',story:'Omar ibn al-Khattab l\'a nommee pour superviser le marche de Medine. Elle etait enseignante, ecrivaine et responsable administrative.'}}
-];
-
-// ═══════════════ HABITS DATA ═══════════════
-const HABITS = [
-  {emoji:'📚', ar:{label:'اقرئي شيئاً مفيداً اليوم',source:'طلب العلم فريضة'}, en:{label:'Read something useful today',source:'Seeking knowledge is obligatory'}, fr:{label:'Lisez quelque chose d\'utile aujourd\'hui',source:'Chercher le savoir est obligatoire'}},
-  {emoji:'🤲', ar:{label:'ادعي لأمك أو لامرأة صالحة',source:'بر الوالدين'}, en:{label:'Pray for your mother or a righteous woman',source:'Honoring parents'}, fr:{label:'Priez pour votre mere ou une femme pieuse',source:'Honorer les parents'}},
-  {emoji:'💬', ar:{label:'شاركي معلومة مفيدة مع شخص',source:'الدال على الخير كفاعله'}, en:{label:'Share useful knowledge with someone',source:'Guiding to good is like doing it'}, fr:{label:'Partagez un savoir utile avec quelqu\'un',source:'Guider vers le bien est comme le faire'}},
-  {emoji:'🌹', ar:{label:'قولي كلمة طيبة لأحد أفراد أسرتك',source:'خيركم خيركم لأهله'}, en:{label:'Say a kind word to a family member',source:'The best of you are best to their family'}, fr:{label:'Dites un mot gentil a un membre de votre famille',source:'Les meilleurs sont les meilleurs envers leur famille'}},
-  {emoji:'📖', ar:{label:'اقرئي آية وتدبري معناها',source:'أفلا يتدبرون القرآن'}, en:{label:'Read a verse and reflect on its meaning',source:'Do they not reflect upon the Quran?'}, fr:{label:'Lisez un verset et reflechissez a son sens',source:'Ne meditent-ils pas sur le Coran ?'}},
-  {emoji:'🤝', ar:{label:'ساعدي شخصاً محتاجاً اليوم',source:'والله في عون العبد ما كان العبد في عون أخيه'}, en:{label:'Help someone in need today',source:'God helps the servant as long as the servant helps others'}, fr:{label:'Aidez quelqu\'un dans le besoin aujourd\'hui',source:'Dieu aide le serviteur tant que le serviteur aide les autres'}},
-  {emoji:'🙏', ar:{label:'سامحي شخصاً أخطأ في حقك',source:'وأن تعفوا أقرب للتقوى'}, en:{label:'Forgive someone who wronged you',source:'To pardon is closer to righteousness'}, fr:{label:'Pardonnez a quelqu\'un qui vous a fait du tort',source:'Pardonner est plus proche de la piete'}},
-  {emoji:'🌟', ar:{label:'تأملي في نعمة واحدة واشكري الله',source:'لئن شكرتم لأزيدنكم'}, en:{label:'Reflect on one blessing and thank God',source:'If you are grateful, I will give you more'}, fr:{label:'Reflechissez a une benediction et remerciez Dieu',source:'Si vous etes reconnaissants, Je vous donnerai plus'}}
-];
-
-// ═══════════════ QUIZ DATA ═══════════════
+// ═══════════════ QUIZ DATA (15 questions) ═══════════════
 const QUIZ = [
-  {ar:'هل أعطى الإسلام المرأة حق التعليم؟', en:"Did Islam give women the right to education?", fr:"L'Islam a-t-il donne aux femmes le droit a l'education ?"},
-  {ar:'هل يجوز إجبار المرأة على الزواج في الإسلام؟', en:'Is it permissible to force a woman into marriage in Islam?', fr:"Est-il permis de forcer une femme au mariage en Islam ?"},
-  {ar:'هل للمرأة ذمة مالية مستقلة في الإسلام؟', en:'Does a woman have independent financial rights in Islam?', fr:'La femme a-t-elle des droits financiers independants en Islam ?'},
-  {ar:'هل منع المرأة من المسجد من السنة النبوية؟', en:"Is banning women from mosques part of the Prophet's tradition?", fr:'Interdire les femmes dans les mosquees fait-il partie de la tradition prophetique ?'},
-  {ar:'هل كانت خديجة رضي الله عنها سيدة أعمال؟', en:'Was Khadijah (may God be pleased with her) a businesswoman?', fr:'Khadijah etait-elle une femme d\'affaires ?'},
-  {ar:'هل الحجاب قمع للمرأة في الإسلام؟', en:'Is hijab oppression of women in Islam?', fr:'Le hijab est-il une oppression de la femme en Islam ?'},
-  {ar:'هل للمرأة حق طلب الطلاق في الإسلام؟', en:'Does a woman have the right to seek divorce in Islam?', fr:'La femme a-t-elle le droit de demander le divorce en Islam ?'},
-  {ar:'هل القوامة تعني سيطرة الرجل على المرأة؟', en:"Does qiwamah mean man's control over woman?", fr:'La qiwamah signifie-t-elle le controle de l\'homme sur la femme ?'},
-  {ar:'هل ترث المرأة دائماً نصف ما يرثه الرجل؟', en:'Does a woman always inherit half of what a man inherits?', fr:'La femme herite-t-elle toujours de la moitie de ce qu\'herite l\'homme ?'},
-  {ar:'هل شاركت النساء في البيعة في عهد النبي ﷺ؟', en:"Did women participate in pledges of allegiance during the Prophet's time?", fr:'Les femmes ont-elles participe aux serments d\'allegeance a l\'epoque du Prophete ?'}
+  {ar:{q:'ما السورة المسماة بالنساء في القرآن؟',opts:['البقرة','النساء','مريم','الطلاق'],correct:1,hint:'السورة الرابعة',quran:'النساء ١'},en:{q:'Which surah is named "The Women"?',opts:['Al-Baqarah','An-Nisa','Maryam','At-Talaq'],correct:1,hint:'The fourth surah',quran:'An-Nisa 1'},fr:{q:'Quelle sourate porte le nom "Les Femmes" ?',opts:['Al-Baqarah','An-Nisa','Maryam','At-Talaq'],correct:1,hint:'La quatrieme sourate',quran:'An-Nisa 1'}},
+  {ar:{q:'من أسست أول جامعة في العالم؟',opts:['عائشة','خديجة','فاطمة الفهرية','أم سلمة'],correct:2,hint:'جامعة القرويين في فاس',quran:'المجادلة ١١'},en:{q:'Who founded the world\'s first university?',opts:['Aisha','Khadijah','Fatima al-Fihri','Umm Salamah'],correct:2,hint:'University of al-Qarawiyyin in Fez',quran:'Al-Mujadilah 11'},fr:{q:'Qui a fonde la premiere universite au monde ?',opts:['Aisha','Khadijah','Fatima al-Fihri','Umm Salamah'],correct:2,hint:'Universite al-Qarawiyyin a Fes',quran:'Al-Mujadilah 11'}},
+  {ar:{q:'من أحق الناس بحسن الصحبة؟',opts:['الأب','الأم','الصديق','الجار'],correct:1,hint:'قالها ثلاث مرات قبل الأب',quran:'لقمان ١٤'},en:{q:'Who is most deserving of good companionship?',opts:['Father','Mother','Friend','Neighbor'],correct:1,hint:'Mentioned three times before the father',quran:'Luqman 14'},fr:{q:'Qui merite le plus la bonne compagnie ?',opts:['Le pere','La mere','L\'ami','Le voisin'],correct:1,hint:'Mentionne trois fois avant le pere',quran:'Luqman 14'}},
+  {ar:{q:'من كانت تاجرة ناجحة قبل الإسلام؟',opts:['عائشة','فاطمة','خديجة','مريم'],correct:2,hint:'أول من آمن بالنبي',quran:'النساء ٣٢'},en:{q:'Who was a successful merchant before Islam?',opts:['Aisha','Fatimah','Khadijah','Maryam'],correct:2,hint:'First to believe in the Prophet',quran:'An-Nisa 32'},fr:{q:'Qui etait marchande prospere avant l\'Islam ?',opts:['Aisha','Fatimah','Khadijah','Maryam'],correct:2,hint:'Premiere a croire au Prophete',quran:'An-Nisa 32'}},
+  {ar:{q:'ما شرط تعدد الزوجات؟',opts:['الغنى','العدل التام','إذن الأولى','لا شروط'],correct:1,hint:'إن خفتم ألا تعدلوا...',quran:'النساء ٣'},en:{q:'What is the condition for polygamy?',opts:['Wealth','Complete justice','First wife\'s permission','No conditions'],correct:1,hint:'If you fear you will not be just...',quran:'An-Nisa 3'},fr:{q:'Quelle est la condition de la polygamie ?',opts:['La richesse','La justice complete','La permission de la premiere','Aucune'],correct:1,hint:'Si vous craignez de ne pas etre justes...',quran:'An-Nisa 3'}},
+  {ar:{q:'أكمل: "إنما النساء ..."',opts:['ناقصات','شقائق الرجال','ضعيفات','تابعات'],correct:1,hint:'تساوٍ وتكامل',quran:'النساء ١٢٤'},en:{q:'Complete: "Women are ..."',opts:['Deficient','Twin halves of men','Weak','Subordinate'],correct:1,hint:'Equality and complementarity',quran:'An-Nisa 124'},fr:{q:'Completez : "Les femmes sont ..."',opts:['Deficientes','Moities jumelles des hommes','Faibles','Subordonnees'],correct:1,hint:'Egalite et complementarite',quran:'An-Nisa 124'}},
+  {ar:{q:'من الملكة القرآنية الحكيمة؟',opts:['آسية','مريم','بلقيس','هاجر'],correct:2,hint:'ملكة سبأ',quran:'النمل ٢٣'},en:{q:'Which Quranic queen ruled wisely?',opts:['Asiya','Maryam','Bilqis','Hajar'],correct:2,hint:'Queen of Sheba',quran:'An-Naml 23'},fr:{q:'Quelle reine coranique a gouverne sagement ?',opts:['Asiya','Maryam','Bilqis','Hajar'],correct:2,hint:'Reine de Saba',quran:'An-Naml 23'}},
+  {ar:{q:'أكمل: "خيركم خيركم ..."',opts:['لجيرانه','لأصدقائه','لأهله','للفقراء'],correct:2,hint:'معاملة الأسرة',quran:'النساء ١٩'},en:{q:'Complete: "The best of you is the best to ..."',opts:['Neighbors','Friends','Family','The poor'],correct:2,hint:'Family treatment',quran:'An-Nisa 19'},fr:{q:'Completez : "Le meilleur est le meilleur envers ..."',opts:['Ses voisins','Ses amis','Sa famille','Les pauvres'],correct:2,hint:'Traitement de la famille',quran:'An-Nisa 19'}},
+  {ar:{q:'هل يحق للمرأة رفض الزواج؟',opts:['نعم رضاها شرط','لا الأب يقرر','حسب العرف','حسب الثروة'],correct:0,hint:'رضاها شرط لصحة العقد',quran:'النساء ١٩'},en:{q:'Can a woman refuse marriage?',opts:['Yes consent required','No father decides','Depends on custom','Depends on wealth'],correct:0,hint:'Consent is required for validity',quran:'An-Nisa 19'},fr:{q:'La femme peut-elle refuser un mariage ?',opts:['Oui consentement requis','Non le pere decide','Selon la coutume','Selon la richesse'],correct:0,hint:'Le consentement est requis',quran:'An-Nisa 19'}},
+  {ar:{q:'من مؤلف "قضايا المرأة"؟',opts:['القرضاوي','محمد الغزالي','سيد قطب','المودودي'],correct:1,hint:'أديب الدعوة',quran:'النساء ١'},en:{q:'Who authored "Women\'s Issues"?',opts:['Al-Qaradawi','Mohammed al-Ghazali','Sayyid Qutb','Maududi'],correct:1,hint:'The Literary Preacher',quran:'An-Nisa 1'},fr:{q:'Qui a ecrit "Questions Feminines" ?',opts:['Al-Qaradawi','Mohammed al-Ghazali','Sayyid Qutb','Maududi'],correct:1,hint:'Le Litteraire de la Predication',quran:'An-Nisa 1'}},
+  {ar:{q:'ما هو الخلع؟',opts:['طلاق الرجل','حق المرأة في فسخ الزواج','إلغاء المهر','الزواج الثاني'],correct:1,hint:'حق شرعي للمرأة',quran:'البقرة ٢٢٩'},en:{q:'What is khul?',opts:['Man\'s divorce','Woman\'s right to dissolve marriage','Dowry cancellation','Second marriage'],correct:1,hint:'A legal right for women',quran:'Al-Baqarah 229'},fr:{q:'Qu\'est-ce que le khul ?',opts:['Divorce du mari','Droit de la femme a la dissolution','Annulation de dot','Deuxieme mariage'],correct:1,hint:'Un droit legal pour les femmes',quran:'Al-Baqarah 229'}},
+  {ar:{q:'أي آية تأمر بالعشرة بالمعروف؟',opts:['آل عمران ١٩٥','النساء ١٩','البقرة ٢٨٢','الأحزاب ٥٩'],correct:1,hint:'في سورة النساء',quran:'النساء ١٩'},en:{q:'Which verse commands living with women in kindness?',opts:['Al Imran 195','An-Nisa 19','Al-Baqarah 282','Al-Ahzab 59'],correct:1,hint:'In Surah An-Nisa',quran:'An-Nisa 19'},fr:{q:'Quel verset ordonne de vivre avec les femmes dans la bonte ?',opts:['Al Imran 195','An-Nisa 19','Al-Baqarah 282','Al-Ahzab 59'],correct:1,hint:'Dans sourate An-Nisa',quran:'An-Nisa 19'}},
+  {ar:{q:'من أولى بحضانة الطفل بعد الطلاق؟',opts:['الأب','الأم','الجد','القاضي'],correct:1,hint:'أنتِ أحق به',quran:'البقرة ٢٣٣'},en:{q:'Who has custody priority after divorce?',opts:['Father','Mother','Grandfather','Judge'],correct:1,hint:'You have more right to him',quran:'Al-Baqarah 233'},fr:{q:'Qui a la priorite de garde apres le divorce ?',opts:['Le pere','La mere','Le grand-pere','Le juge'],correct:1,hint:'Tu as plus de droit sur lui',quran:'Al-Baqarah 233'}},
+  {ar:{q:'ماذا قال القرآن عن أجر الرجل والمرأة؟',opts:['الرجل أفضل','المرأة أفضل','متساويان','حسب الاجتهاد'],correct:2,hint:'لا أضيع عمل عامل',quran:'آل عمران ١٩٥'},en:{q:'What does the Quran say about men\'s and women\'s reward?',opts:['Men better','Women better','Equal','Depends on effort'],correct:2,hint:'I do not waste the work of any worker',quran:'Al Imran 195'},fr:{q:'Que dit le Coran sur la recompense ?',opts:['Hommes meilleurs','Femmes meilleures','Egaux','Selon l\'effort'],correct:2,hint:'Je ne perds pas l\'oeuvre d\'un ouvrier',quran:'Al Imran 195'}},
+  {ar:{q:'أي آية تتحدث عن المودة والرحمة بين الزوجين؟',opts:['النساء ١','الروم ٢١','البقرة ٢٢٩','الأحزاب ٣٥'],correct:1,hint:'ومن آياته أن خلق لكم...',quran:'الروم ٢١'},en:{q:'Which verse speaks of spousal affection and mercy?',opts:['An-Nisa 1','Ar-Rum 21','Al-Baqarah 229','Al-Ahzab 35'],correct:1,hint:'Among His signs He created for you...',quran:'Ar-Rum 21'},fr:{q:'Quel verset parle d\'affection et misericorde entre epoux ?',opts:['An-Nisa 1','Ar-Rum 21','Al-Baqarah 229','Al-Ahzab 35'],correct:1,hint:'Parmi Ses signes Il a cree pour vous...',quran:'Ar-Rum 21'}}
 ];
 
-// ═══════════════ DUAS DATA ═══════════════
+// ═══════════════ DUAS DATA (8 duas) ═══════════════
 const DUAS = [
-  {ar:{label:'دعاء للأم',text:'رَبِّ ارْحَمْهُمَا كَمَا رَبَّيَانِي صَغِيرًا',tr:'My Lord, have mercy on them as they raised me when I was small'}, en:{label:'Prayer for Parents',text:'رَبِّ ارْحَمْهُمَا كَمَا رَبَّيَانِي صَغِيرًا',tr:'My Lord, have mercy on them as they raised me when I was small'}, fr:{label:'Priere pour les Parents',text:'رَبِّ ارْحَمْهُمَا كَمَا رَبَّيَانِي صَغِيرًا',tr:'Seigneur, fais-leur misericorde comme ils m\'ont eleve quand j\'etais petit'}},
-  {ar:{label:'دعاء الهداية',text:'رَبَّنَا هَبْ لَنَا مِنْ أَزْوَاجِنَا وَذُرِّيَّاتِنَا قُرَّةَ أَعْيُنٍ',tr:'Our Lord, grant us from our spouses and children comfort of eyes'}, en:{label:'Prayer for Family',text:'رَبَّنَا هَبْ لَنَا مِنْ أَزْوَاجِنَا وَذُرِّيَّاتِنَا قُرَّةَ أَعْيُنٍ',tr:'Our Lord, grant us from our spouses and children comfort of eyes'}, fr:{label:'Priere pour la Famille',text:'رَبَّنَا هَبْ لَنَا مِنْ أَزْوَاجِنَا وَذُرِّيَّاتِنَا قُرَّةَ أَعْيُنٍ',tr:'Seigneur, accorde-nous de nos epoux et descendants la fraicheur des yeux'}},
-  {ar:{label:'دعاء العلم',text:'رَبِّ زِدْنِي عِلْمًا',tr:'My Lord, increase me in knowledge'}, en:{label:'Prayer for Knowledge',text:'رَبِّ زِدْنِي عِلْمًا',tr:'My Lord, increase me in knowledge'}, fr:{label:'Priere pour le Savoir',text:'رَبِّ زِدْنِي عِلْمًا',tr:'Seigneur, augmente-moi en savoir'}},
-  {ar:{label:'دعاء الصبر',text:'رَبَّنَا أَفْرِغْ عَلَيْنَا صَبْرًا وَثَبِّتْ أَقْدَامَنَا',tr:'Our Lord, pour patience upon us and plant our feet firmly'}, en:{label:'Prayer for Patience',text:'رَبَّنَا أَفْرِغْ عَلَيْنَا صَبْرًا وَثَبِّتْ أَقْدَامَنَا',tr:'Our Lord, pour patience upon us and plant our feet firmly'}, fr:{label:'Priere pour la Patience',text:'رَبَّنَا أَفْرِغْ عَلَيْنَا صَبْرًا وَثَبِّتْ أَقْدَامَنَا',tr:'Seigneur, donne-nous la patience et affermis nos pas'}},
-  {ar:{label:'دعاء التوكل',text:'حَسْبُنَا اللَّهُ وَنِعْمَ الْوَكِيلُ',tr:'Sufficient for us is God, and He is the best Disposer of affairs'}, en:{label:'Prayer of Trust',text:'حَسْبُنَا اللَّهُ وَنِعْمَ الْوَكِيلُ',tr:'Sufficient for us is God, and He is the best Disposer of affairs'}, fr:{label:'Priere de Confiance',text:'حَسْبُنَا اللَّهُ وَنِعْمَ الْوَكِيلُ',tr:'Dieu nous suffit, Il est le meilleur Garant'}},
-  {ar:{label:'دعاء الشكر',text:'رَبِّ أَوْزِعْنِي أَنْ أَشْكُرَ نِعْمَتَكَ الَّتِي أَنْعَمْتَ عَلَيَّ',tr:'My Lord, inspire me to be grateful for Your blessings'}, en:{label:'Prayer of Gratitude',text:'رَبِّ أَوْزِعْنِي أَنْ أَشْكُرَ نِعْمَتَكَ الَّتِي أَنْعَمْتَ عَلَيَّ',tr:'My Lord, inspire me to be grateful for Your blessings'}, fr:{label:'Priere de Gratitude',text:'رَبِّ أَوْزِعْنِي أَنْ أَشْكُرَ نِعْمَتَكَ الَّتِي أَنْعَمْتَ عَلَيَّ',tr:'Seigneur, inspire-moi la reconnaissance de Tes bienfaits'}}
+  {ar:{label:'دعاء للوالدين',text:'رَّبِّ ارْحَمْهُمَا كَمَا رَبَّيَانِي صَغِيرًا',tr:'الإسراء ٢٤'},en:{label:'Dua for Parents',text:'My Lord, have mercy upon them as they brought me up when I was small',tr:'Al-Isra 24'},fr:{label:'Dua pour les Parents',text:'Seigneur, fais-leur misericorde comme ils m\'ont eleve petit',tr:'Al-Isra 24'}},
+  {ar:{label:'دعاء الأسرة الصالحة',text:'رَبَّنَا هَبْ لَنَا مِنْ أَزْوَاجِنَا وَذُرِّيَّاتِنَا قُرَّةَ أَعْيُنٍ',tr:'الفرقان ٧٤'},en:{label:'Dua for Righteous Family',text:'Our Lord, grant us from our spouses and offspring comfort to our eyes',tr:'Al-Furqan 74'},fr:{label:'Dua pour une Famille Pieuse',text:'Seigneur, accorde-nous de nos epoux et descendants la joie des yeux',tr:'Al-Furqan 74'}},
+  {ar:{label:'دعاء العلم النافع',text:'اللهم إني أسألك علماً نافعاً ورزقاً طيباً وعملاً متقبلاً',tr:'دعاء بعد الفجر'},en:{label:'Dua for Beneficial Knowledge',text:'O God, I ask You for beneficial knowledge, good provision, and accepted deeds',tr:'After Fajr'},fr:{label:'Dua pour un Savoir Utile',text:'O Dieu, je Te demande un savoir utile, une bonne subsistance et des oeuvres acceptees',tr:'Apres le Fajr'}},
+  {ar:{label:'دعاء حسن الخلق',text:'اللهم اهدني لأحسن الأخلاق لا يهدي لأحسنها إلا أنت',tr:'رواه مسلم'},en:{label:'Dua for Good Character',text:'O God, guide me to the best of character; none can guide to it but You',tr:'Muslim'},fr:{label:'Dua pour le Bon Caractere',text:'O Dieu, guide-moi vers les meilleurs caracteres; nul ne peut y guider sauf Toi',tr:'Muslim'}},
+  {ar:{label:'دعاء الهداية',text:'اللهم أرنا الحق حقاً وارزقنا اتباعه وأرنا الباطل باطلاً وارزقنا اجتنابه',tr:'دعاء مأثور'},en:{label:'Dua for Guidance',text:'O God, show us truth as truth and grant us to follow it, and show us falsehood and grant us to avoid it',tr:'Traditional supplication'},fr:{label:'Dua de Guidance',text:'O Dieu, montre-nous la verite et accorde-nous de la suivre, et montre-nous le faux et accorde-nous de l\'eviter',tr:'Invocation traditionnelle'}},
+  {ar:{label:'دعاء العدل',text:'اللهم إني أعوذ بك من الظلم والشقاق والنفاق',tr:'دعاء نبوي'},en:{label:'Dua for Justice',text:'O God, I seek refuge in You from injustice, discord, and hypocrisy',tr:'Prophetic supplication'},fr:{label:'Dua de Justice',text:'O Dieu, je cherche refuge contre l\'injustice, la discorde et l\'hypocrisie',tr:'Invocation prophetique'}},
+  {ar:{label:'دعاء الصبر',text:'رَبَّنَا أَفْرِغْ عَلَيْنَا صَبْرًا وَثَبِّتْ أَقْدَامَنَا',tr:'البقرة ٢٥٠'},en:{label:'Dua for Patience',text:'Our Lord, pour upon us patience and plant firmly our feet',tr:'Al-Baqarah 250'},fr:{label:'Dua de Patience',text:'Seigneur, deverse sur nous la patience et affermis nos pas',tr:'Al-Baqarah 250'}},
+  {ar:{label:'دعاء التوفيق',text:'رَبِّ اشْرَحْ لِي صَدْرِي وَيَسِّرْ لِي أَمْرِي',tr:'طه ٢٥-٢٦'},en:{label:'Dua for Success',text:'My Lord, expand for me my chest and ease for me my task',tr:'Ta-Ha 25-26'},fr:{label:'Dua de Succes',text:'Seigneur, ouvre-moi ma poitrine et facilite-moi ma tache',tr:'Ta-Ha 25-26'}}
 ];
 
-// ═══════════════ STATE ═══════════════
-let lang = localStorage.getItem('qm-lang') || 'ar';
-let theme = localStorage.getItem('qm-theme') || 'rose';
-const themes = ['rose','night','garden'];
-const themeNames = {rose:'🌹 Rose',night:'🌙 Night',garden:'🌿 Garden'};
-const themeIcons = ['🌹','🌙','🌿'];
-let currentConceptIdx = -1;
+// ═══════════════ BADGES ═══════════════
+const BADGE_DEFS = [
+  {id:'beginner',emoji:'🌱',xp:0,ar:'مبتدئ',en:'Beginner',fr:'Debutant'},
+  {id:'reader',emoji:'📖',xp:50,ar:'قارئ',en:'Reader',fr:'Lecteur'},
+  {id:'scholar',emoji:'🎓',xp:150,ar:'عالم',en:'Scholar',fr:'Savant'},
+  {id:'persistent',emoji:'🔥',xp:300,ar:'مثابر',en:'Persistent',fr:'Perseverant'},
+  {id:'expert',emoji:'🏆',xp:500,ar:'خبير',en:'Expert',fr:'Expert'}
+];
 
-// ═══════════════ INIT ═══════════════
-document.addEventListener('DOMContentLoaded', () => {
-  setTheme(theme);
-  setLang(lang);
-  initSplash();
-  initTabs();
-  initScrollTop();
-  initTicker();
-  renderHome();
-  renderConcepts();
-  renderHeroines();
-  renderHabits();
-  renderQuiz();
-  renderAbout();
-  renderHelp();
-  renderDuas();
-  initScrollReveal();
-  initKeyboardNav();
-});
+// ═══════════════ STORAGE KEYS ═══════════════
+const STORE_PREFIX = 'qadaya_marah_';
+const READ_KEY = STORE_PREFIX + 'read';
+const XP_KEY = STORE_PREFIX + 'xp';
+const STREAK_KEY = STORE_PREFIX + 'streak';
+const MODE_KEY = STORE_PREFIX + 'mode';
+const QUIZ_BEST_KEY = STORE_PREFIX + 'quizBest';
 
-// ═══════════════ SPLASH ═══════════════
-function initSplash() {
-  let count = 5;
-  const el = document.getElementById('splashCount');
-  const featuresEl = document.getElementById('splashFeatures');
-  if (featuresEl) {
-    featuresEl.innerHTML = T[lang].splashFeatures.map((f, i) =>
-      `<div class="splash-feature" style="animation-delay:${0.3 + i * 0.3}s">${f}</div>`
-    ).join('');
-  }
-  const interval = setInterval(() => {
-    count--;
-    if (el) el.textContent = count;
-    if (count <= 0) { dismissSplash(); clearInterval(interval); }
-  }, 1000);
+// ═══════════════ XP & BADGES ═══════════════
+function getXP() { return parseInt(localStorage.getItem(XP_KEY) || '0'); }
+function addXP(n) {
+  const xp = getXP() + n;
+  localStorage.setItem(XP_KEY, xp);
+  checkBadges(xp);
+  updateXPDisplay();
 }
-function dismissSplash() {
-  const s = document.getElementById('splash');
-  if (s) { s.classList.add('hidden'); setTimeout(() => s.style.display = 'none', 500); }
-  playSound('click');
+function getLevel(xp) { return Math.floor(xp / 100) + 1; }
+function getEarnedBadges() { return BADGE_DEFS.filter(b => getXP() >= b.xp).map(b => b.id); }
+function checkBadges(xp) {
+  const newBadge = BADGE_DEFS.find(b => xp >= b.xp && xp - 10 < b.xp);
+  if (newBadge) showToast(`${newBadge.emoji} ${newBadge[lang]}!`);
 }
 
-// ═══════════════ LANGUAGE ═══════════════
-function setLang(l) {
-  lang = l;
-  localStorage.setItem('qm-lang', l);
-  const isRTL = l === 'ar';
-  document.documentElement.lang = l;
-  document.documentElement.dir = isRTL ? 'rtl' : 'ltr';
-  document.body.dir = isRTL ? 'rtl' : 'ltr';
-  document.querySelectorAll('.lang-opt').forEach(b => b.classList.toggle('active', b.dataset.lang === l));
-  const t = T[l];
-  const set = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val; };
-  set('appTitle', t.appTitle); set('splashSub', t.splashSub); set('splashHint', t.splashHint);
-  set('tabHome', t.tabHome); set('tabConcepts', t.tabConcepts); set('tabHeroines', t.tabHeroines);
-  set('tabHabits', t.tabHabits); set('tabQuiz', t.tabQuiz); set('tabAbout', t.tabAbout);
-  set('conceptsTitle', t.conceptsTitle); set('conceptsDesc', t.conceptsDesc);
-  set('heroinesTitle', t.heroinesTitle); set('heroinesDesc', t.heroinesDesc);
-  set('habitsTitle', t.habitsTitle); set('habitsDesc', t.habitsDesc);
-  set('quizTitle', t.quizTitle); set('quizDesc', t.quizDesc);
-  set('helpTitle', t.helpTitle); set('duaPanelTitle', t.duaPanelTitle);
-  set('habitsReset', t.resetBtn);
-  renderHome(); renderConcepts(); renderHeroines(); renderHabits(); renderQuiz(); renderAbout(); renderHelp(); renderDuas();
-  const featuresEl = document.getElementById('splashFeatures');
-  if (featuresEl) {
-    featuresEl.innerHTML = T[l].splashFeatures.map((f, i) =>
-      `<div class="splash-feature" style="animation-delay:${0.3 + i * 0.3}s">${f}</div>`
-    ).join('');
+// ═══════════════ READ TRAITS ═══════════════
+function getReadTraits() { return JSON.parse(localStorage.getItem(READ_KEY) || '[]'); }
+function markTraitRead(id) {
+  const read = getReadTraits();
+  if (!read.includes(id)) {
+    read.push(id);
+    localStorage.setItem(READ_KEY, JSON.stringify(read));
+    addXP(10);
   }
 }
 
-// ═══════════════ THEME ═══════════════
-function setTheme(t) {
-  theme = t;
-  document.documentElement.dataset.theme = t;
-  localStorage.setItem('qm-theme', t);
-  const idx = themes.indexOf(t);
-  const el = document.getElementById('themeIcon');
-  if (el) el.textContent = themeIcons[idx];
+// ═══════════════ STREAK ═══════════════
+function getStreak() { return JSON.parse(localStorage.getItem(STREAK_KEY) || '{"count":0,"lastDate":""}'); }
+function updateStreak() {
+  const today = new Date().toDateString();
+  const s = getStreak();
+  if (s.lastDate === today) return s.count;
+  const yesterday = new Date(); yesterday.setDate(yesterday.getDate()-1);
+  if (s.lastDate === yesterday.toDateString()) { s.count++; } else if (s.lastDate !== today) { s.count = 1; }
+  s.lastDate = today;
+  localStorage.setItem(STREAK_KEY, JSON.stringify(s));
+  return s.count;
 }
-function cycleTheme() {
-  const idx = (themes.indexOf(theme) + 1) % themes.length;
-  setTheme(themes[idx]);
-  showToast(themeNames[themes[idx]]);
+
+// ═══════════════ AGE MODE ═══════════════
+let ageMode = localStorage.getItem(MODE_KEY) || 'teen';
+function toggleAgeMode() {
+  ageMode = ageMode === 'young' ? 'teen' : 'young';
+  localStorage.setItem(MODE_KEY, ageMode);
+  document.body.classList.toggle('young-mode', ageMode === 'young');
+  renderAll();
+  showToast(ageMode === 'young' ? T[lang].youngMode : T[lang].teenMode);
   playSound('theme');
 }
 
-// ═══════════════ TABS ═══════════════
-function initTabs() {
-  document.querySelectorAll('.tab').forEach(tab => {
-    tab.addEventListener('click', () => {
-      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-      document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
-      tab.classList.add('active');
-      const panel = document.getElementById('panel-' + tab.dataset.tab);
-      if (panel) panel.classList.add('active');
-      window.scrollTo({top: 0, behavior: 'smooth'});
-      playSound('click');
-    });
-  });
+// ═══════════════ LANGUAGE & THEME ═══════════════
+let lang = document.documentElement.lang || 'ar';
+let currentTheme = document.documentElement.dataset.theme || 'nature';
+const THEMES = ['nature','night','ocean'];
+const THEME_ICONS = { nature:'🌿', night:'🌙', ocean:'🌊' };
+let currentPrincipleIdx = -1;
+
+function setLang(l) {
+  lang = l;
+  document.documentElement.lang = l;
+  document.documentElement.dir = l === 'ar' ? 'rtl' : 'ltr';
+  document.querySelectorAll('.lang-opt').forEach(b => b.classList.toggle('active', b.dataset.lang === l));
+  renderAll();
 }
 
-// ═══════════════ TICKER ═══════════════
-function initTicker() {
-  const el = document.getElementById('tickerText');
-  if (!el) return;
-  const msgs = {
-    ar: ['🌹 قضايا المرأة بين التقاليد الراكدة والوافدة — الشيخ محمد الغزالي','📖 ٢٠ قضية عن حقوق المرأة في الإسلام','👑 نساء خالدات صنعن التاريخ'],
-    en: ["🌹 Women's Issues Between Stagnant and Imported Traditions — Sheikh al-Ghazali",'📖 20 issues on women\'s rights in Islam','👑 Heroines who shaped Islamic history'],
-    fr: ['🌹 Questions de la Femme entre Traditions Stagnantes et Importees — Sheikh al-Ghazali','📖 20 questions sur les droits de la femme en Islam','👑 Heroines qui ont faconne l\'histoire islamique']
-  };
-  const items = (msgs[lang] || msgs.en).map(m => `<span class="tc">&nbsp;&nbsp;&nbsp;${m}&nbsp;&nbsp;&nbsp;</span>`).join('');
-  el.innerHTML = items + items;
-  el.style.animation = `tickerMarquee ${(msgs[lang] || msgs.en).length * 12}s linear infinite`;
+function cycleTheme() {
+  const idx = (THEMES.indexOf(currentTheme) + 1) % THEMES.length;
+  currentTheme = THEMES[idx];
+  document.documentElement.dataset.theme = currentTheme;
+  document.getElementById('themeIcon').textContent = THEME_ICONS[currentTheme];
+  playSound('theme');
+}
+
+// ═══════════════ RENDER ALL ═══════════════
+function renderAll() {
+  const t = T[lang];
+  document.getElementById('appTitle').textContent = t.appTitle;
+  document.getElementById('splashSub').textContent = t.splashSub;
+  document.getElementById('splashHint').textContent = t.splashHint;
+  document.getElementById('tabHome').textContent = t.tabHome;
+  document.getElementById('tabTraits').textContent = t.tabTraits;
+  document.getElementById('tabQuiz').textContent = t.tabQuiz;
+  document.getElementById('tabProgress').textContent = t.tabProgress;
+  document.getElementById('tabAbout').textContent = t.tabAbout;
+  document.getElementById('traitsTitle').textContent = t.traitsTitle;
+  document.getElementById('traitsDesc').textContent = t.traitsDesc;
+  document.getElementById('quizTitle').textContent = t.quizTitle;
+  document.getElementById('quizDesc').textContent = t.quizDesc;
+  document.getElementById('progressTitle').textContent = t.progressTitle;
+  document.getElementById('progressDesc').textContent = t.progressDesc;
+  document.getElementById('helpTitle').textContent = t.helpTitle;
+  document.getElementById('duaPanelTitle').textContent = t.duaPanelTitle;
+  document.getElementById('ageModeBtn').textContent = ageMode === 'young' ? t.youngMode : t.teenMode;
+  renderHome();
+  renderTraits();
+  renderProgress();
+  renderAbout();
+  renderHelp();
+  renderDuas();
+  renderTicker();
 }
 
 // ═══════════════ RENDER: HOME ═══════════════
 function renderHome() {
   const t = T[lang];
-  const dayIdx = new Date().getDate() % CONCEPTS.length;
-  const c = CONCEPTS[dayIdx];
-  const cd = c[lang];
+  const dayIdx = new Date().getDate() % TRAITS.length;
+  const trait = TRAITS[dayIdx];
+  const d = trait[lang];
   document.getElementById('dailyCard').innerHTML = `
     <div class="daily-label">${t.dailyLabel}</div>
-    <div class="daily-title">${cd.title}</div>
-    <div class="daily-body">${cd.desc}</div>
-    <div class="daily-action" onclick="document.querySelector('[data-tab=concepts]').click()">${t.tabConcepts} &#8594;</div>
-  `;
-  const sections = [
-    {icon:'🌹',tab:'concepts',title:t.tabConcepts,desc:lang==='ar'?'٢٠ قضية إسلامية':lang==='fr'?'20 questions islamiques':'20 Islamic issues'},
-    {icon:'👑',tab:'heroines',title:t.tabHeroines,desc:lang==='ar'?'نساء صنعن التاريخ':lang==='fr'?'Femmes qui ont fait l\'histoire':'Women who shaped history'},
-    {icon:'📋',tab:'habits',title:t.tabHabits,desc:lang==='ar'?'تتبع يومي':lang==='fr'?'Suivi quotidien':'Daily tracking'},
-    {icon:'🤔',tab:'quiz',title:t.tabQuiz,desc:lang==='ar'?'اختبري نفسك':lang==='fr'?'Testez-vous':'Test yourself'},
-    {icon:'📖',tab:'about',title:t.tabAbout,desc:lang==='ar'?'عن الكتاب والمؤلف':lang==='fr'?'Le livre et l\'auteur':'Book & author'},
-  ];
-  document.getElementById('homeGrid').innerHTML = sections.map(s => `
-    <div class="home-card" onclick="document.querySelector('[data-tab=${s.tab}]').click()">
-      <span class="hc-icon">${s.icon}</span>
-      <div class="hc-title">${s.title}</div>
-      <div class="hc-desc">${s.desc}</div>
-    </div>
-  `).join('');
+    <div class="daily-title">${trait.emoji} ${d.title}</div>
+    <div class="daily-body">${ageMode === 'young' ? d.young : d.desc}</div>
+    <div class="daily-action" onclick="switchTab('traits');toggleCard('trait-${trait.id}')">${t.readMore} &#8594;</div>`;
+  document.getElementById('homeGrid').innerHTML = TRAITS.map(tr => {
+    const dd = tr[lang];
+    return `<div class="home-card" onclick="switchTab('traits');toggleCard('trait-${tr.id}')">
+      <span class="hc-icon">${tr.emoji}</span>
+      <div class="hc-title">${dd.title}</div>
+    </div>`;
+  }).join('');
 }
 
-// ═══════════════ RENDER: CONCEPTS ═══════════════
-function renderConcepts() {
+// ═══════════════ RENDER: TRAITS ═══════════════
+function renderTraits() {
   const t = T[lang];
-  const searchBar = `<div class="search-bar"><input type="text" id="conceptsSearch" class="search-input" placeholder="${t.searchPlaceholder}" oninput="filterConcepts(this.value)"><span class="search-icon">🔍</span></div>`;
-  const cards = CONCEPTS.map((c, i) => {
-    const d = c[lang];
+  const readTraits = getReadTraits();
+  const container = document.getElementById('traitsContainer');
+  const searchHTML = `<div class="search-bar"><span class="search-icon">🔍</span><input class="search-input" id="traitsSearch" placeholder="${t.searchPlaceholder}" oninput="filterTraits(this.value)"></div>`;
+  container.innerHTML = searchHTML + TRAITS.map(tr => {
+    const d = tr[lang];
+    const isRead = readTraits.includes(tr.id);
     return `
-    <div class="principle-card scroll-reveal" id="concept-${c.id}" data-search="${d.title.toLowerCase()}">
-      <div class="principle-head" onclick="toggleCard('concept-${c.id}')">
-        <span class="principle-num">${c.id}</span>
-        <span class="principle-emoji">${c.emoji}</span>
-        <span class="principle-title">${d.title}</span>
-        <span class="principle-chev">&#9660;</span>
+    <div class="trait-card scroll-reveal ${isRead ? 'read' : ''}" id="trait-${tr.id}">
+      <div class="trait-head" onclick="toggleCard('trait-${tr.id}');markTraitRead(${tr.id})">
+        <span class="trait-num">${tr.id}</span>
+        <span class="trait-emoji">${tr.emoji}</span>
+        <span class="trait-title">${d.title}</span>
+        ${isRead ? '<span class="trait-read-badge">&#10003;</span>' : ''}
+        <span class="trait-chev">&#9660;</span>
       </div>
-      <div class="principle-body">
-        <div class="principle-inner">
-          <p class="principle-desc">${d.desc}</p>
-          <div class="comparison-box">
-            <div class="comparison-side carnegie-side">
-              <div class="comp-label">✅ ${t.truth}</div>
-              <div class="comp-text">${d.truth}</div>
-            </div>
-            <div class="comparison-side ghazali-side">
-              <div class="comp-label">❌ ${t.myth}</div>
-              <div class="comp-text">${d.myth}</div>
-            </div>
+      <div class="trait-body">
+        <div class="trait-inner">
+          <div class="trait-desc">${ageMode === 'young' ? d.young : d.desc}</div>
+          <div class="verse-box">
+            <div class="verse-arabic">${d.verse}</div>
+            <div class="verse-ref">${d.verseRef}</div>
+          </div>
+          <div class="hadith-box">
+            <span class="hadith-label">📜 ${t.hadith}</span>
+            <div class="hadith-text">${d.hadith}</div>
           </div>
           <div class="action-box">
             <span class="action-icon">💡</span>
             <span>${d.action}</span>
           </div>
-          <button class="share-btn" onclick="event.stopPropagation();shareConcept(${i})">
-            <span class="share-icon">&#128279;</span> ${t.share}
-          </button>
+          <button class="share-btn" onclick="shareTrait(${tr.id})"><span class="share-icon">📤</span> ${t.share}</button>
         </div>
       </div>
     </div>`;
   }).join('');
-  document.getElementById('conceptsContainer').innerHTML = searchBar + cards;
 }
 
-function filterConcepts(query) {
-  const q = query.toLowerCase().trim();
-  document.querySelectorAll('.principle-card').forEach(card => {
-    const searchText = card.dataset.search || '';
-    const title = card.querySelector('.principle-title');
-    const titleText = title ? title.textContent.toLowerCase() : '';
-    const match = !q || searchText.includes(q) || titleText.includes(q);
-    card.style.display = match ? '' : 'none';
+function filterTraits(query) {
+  const cards = document.querySelectorAll('.trait-card');
+  const q = query.toLowerCase();
+  cards.forEach(card => {
+    const title = card.querySelector('.trait-title').textContent.toLowerCase();
+    const desc = card.querySelector('.trait-desc') ? card.querySelector('.trait-desc').textContent.toLowerCase() : '';
+    card.style.display = (!q || title.includes(q) || desc.includes(q)) ? '' : 'none';
   });
 }
 
-async function shareConcept(idx) {
-  const c = CONCEPTS[idx];
-  const d = c[lang];
-  const text = `${c.emoji} ${d.title}\n\n${d.desc}\n\n💡 ${d.action}\n\n— قضايا المرأة | Women's Issues`;
-  if (navigator.share) {
-    try { await navigator.share({ title: d.title, text }); } catch(e) {}
+function shareTrait(id) {
+  const trait = TRAITS.find(t => t.id === id);
+  if (!trait) return;
+  const d = trait[lang];
+  const text = `${trait.emoji} ${d.title}\n${d.desc}\n\n${d.verse} — ${d.verseRef}`;
+  if (navigator.share) { navigator.share({ title: d.title, text }); }
+  else { navigator.clipboard.writeText(text).then(() => showToast(lang==='ar'?'تم النسخ':'Copied!')); }
+}
+
+// ═══════════════ RENDER: QUIZ (Who Wants to Be a Scholar?) ═══════════════
+let quizState = { current: 0, score: 0, answers: [], lifelines: { fifty: true, hint: true, quran: true }, active: false };
+
+function renderQuiz() {
+  quizState = { current: 0, score: 0, answers: [], lifelines: { fifty: true, hint: true, quran: true }, active: true };
+  showQuizQuestion();
+}
+
+function showQuizQuestion() {
+  const t = T[lang];
+  const container = document.getElementById('quizContainer');
+  const result = document.getElementById('quizResult');
+  result.classList.add('hidden');
+  if (quizState.current >= QUIZ.length) { showQuizResult(); return; }
+  const q = QUIZ[quizState.current][lang];
+  const total = QUIZ.length;
+  const num = quizState.current + 1;
+  container.innerHTML = `
+    <div class="quiz-progress-bar"><div class="quiz-progress-fill" style="width:${num/total*100}%"></div></div>
+    <div class="quiz-counter">${num} / ${total}</div>
+    <div class="quiz-question-card scroll-reveal">
+      <div class="quiz-q-text">${q.q}</div>
+      <div class="quiz-options" id="quizOpts">
+        ${q.opts.map((opt, i) => `<button class="quiz-opt" id="qopt-${i}" onclick="answerQuiz(${i})">${opt}</button>`).join('')}
+      </div>
+      <div class="quiz-lifelines">
+        <button class="lifeline-btn ${quizState.lifelines.fifty?'':'used'}" onclick="useFiftyFifty()" ${quizState.lifelines.fifty?'':'disabled'}>${t.lifeline5050}</button>
+        <button class="lifeline-btn ${quizState.lifelines.hint?'':'used'}" onclick="useHint()" ${quizState.lifelines.hint?'':'disabled'}>${t.lifelineHint}</button>
+        <button class="lifeline-btn ${quizState.lifelines.quran?'':'used'}" onclick="useQuranRef()" ${quizState.lifelines.quran?'':'disabled'}>${t.lifelineQuran}</button>
+      </div>
+      <div id="quizFeedback" class="quiz-feedback hidden"></div>
+    </div>`;
+}
+
+function answerQuiz(idx) {
+  if (!quizState.active) return;
+  const q = QUIZ[quizState.current][lang];
+  const correct = q.correct;
+  const opts = document.querySelectorAll('.quiz-opt');
+  opts.forEach((o, i) => {
+    o.disabled = true;
+    if (i === correct) o.classList.add('correct');
+    if (i === idx && i !== correct) o.classList.add('wrong');
+  });
+  const feedback = document.getElementById('quizFeedback');
+  feedback.classList.remove('hidden');
+  if (idx === correct) {
+    quizState.score++;
+    addXP(5);
+    feedback.innerHTML = `<span class="fb-correct">${T[lang].correct}</span>`;
+    playSound('success');
   } else {
-    try { await navigator.clipboard.writeText(text); showToast(lang === 'ar' ? 'تم النسخ!' : lang === 'fr' ? 'Copie !' : 'Copied!'); } catch(e) { showToast('Could not copy'); }
+    feedback.innerHTML = `<span class="fb-wrong">${T[lang].wrong}</span>`;
+    playSound('click');
   }
+  quizState.answers.push(idx);
+  quizState.current++;
+  setTimeout(() => showQuizQuestion(), 1800);
 }
 
-// ═══════════════ RENDER: HEROINES ═══════════════
-function renderHeroines() {
-  document.getElementById('heroinesContainer').innerHTML = HEROINES.map(h => {
-    const d = h[lang];
-    return `
-    <div class="anxiety-card scroll-reveal">
-      <div class="anxiety-header">
-        <span class="anxiety-emoji">${h.emoji}</span>
-        <span class="anxiety-title">${d.name}</span>
+function useFiftyFifty() {
+  if (!quizState.lifelines.fifty) return;
+  quizState.lifelines.fifty = false;
+  const q = QUIZ[quizState.current][lang];
+  const correct = q.correct;
+  const wrongIdxs = [0,1,2,3].filter(i => i !== correct);
+  const toHide = wrongIdxs.sort(() => Math.random() - 0.5).slice(0, 2);
+  toHide.forEach(i => { const el = document.getElementById('qopt-'+i); if(el) { el.style.visibility='hidden'; el.disabled=true; }});
+  document.querySelector('.lifeline-btn').classList.add('used');
+  playSound('click');
+}
+
+function useHint() {
+  if (!quizState.lifelines.hint) return;
+  quizState.lifelines.hint = false;
+  const q = QUIZ[quizState.current][lang];
+  const feedback = document.getElementById('quizFeedback');
+  feedback.classList.remove('hidden');
+  feedback.innerHTML = `<span class="fb-hint">💡 ${q.hint}</span>`;
+  playSound('click');
+}
+
+function useQuranRef() {
+  if (!quizState.lifelines.quran) return;
+  quizState.lifelines.quran = false;
+  const q = QUIZ[quizState.current][lang];
+  const feedback = document.getElementById('quizFeedback');
+  feedback.classList.remove('hidden');
+  feedback.innerHTML = `<span class="fb-quran">📖 ${q.quran}</span>`;
+  playSound('click');
+}
+
+function showQuizResult() {
+  const t = T[lang];
+  const total = QUIZ.length;
+  const pct = Math.round(quizState.score / total * 100);
+  const best = parseInt(localStorage.getItem(QUIZ_BEST_KEY) || '0');
+  if (pct > best) localStorage.setItem(QUIZ_BEST_KEY, pct);
+  addXP(20);
+  let emoji, title;
+  if (pct >= 80) { emoji = '🏆'; title = lang==='ar'?'عالم حقيقي!':lang==='fr'?'Un vrai savant !':'A True Scholar!'; }
+  else if (pct >= 50) { emoji = '📖'; title = lang==='ar'?'جيد جداً!':lang==='fr'?'Tres bien !':'Very Good!'; }
+  else { emoji = '🌱'; title = lang==='ar'?'واصل التعلم!':lang==='fr'?'Continue !':'Keep Learning!'; }
+  document.getElementById('quizContainer').innerHTML = '';
+  const result = document.getElementById('quizResult');
+  result.classList.remove('hidden');
+  result.innerHTML = `
+    <div class="qr-emoji">${emoji}</div>
+    <div class="qr-score">${quizState.score}/${total}</div>
+    <div class="qr-title">${title}</div>
+    <div class="qr-desc">${pct}%</div>
+    <button class="quiz-submit" onclick="renderQuiz()">${t.tryAgain}</button>`;
+  result.scrollIntoView({ behavior: 'smooth' });
+  if (pct >= 80) launchConfetti();
+  quizState.active = false;
+}
+
+// ═══════════════ RENDER: PROGRESS ═══════════════
+function renderProgress() {
+  const t = T[lang];
+  const xp = getXP();
+  const level = getLevel(xp);
+  const streak = getStreak().count;
+  const readTraits = getReadTraits();
+  const earned = getEarnedBadges();
+  const bestQuiz = parseInt(localStorage.getItem(QUIZ_BEST_KEY) || '0');
+  const nextBadge = BADGE_DEFS.find(b => !earned.includes(b.id));
+  const nextXP = nextBadge ? nextBadge.xp : 1000;
+  const progressPct = Math.min(100, (xp / nextXP) * 100);
+
+  document.getElementById('progressContainer').innerHTML = `
+    <div class="progress-xp-card">
+      <div class="xp-header">
+        <span class="xp-icon">⭐</span>
+        <span class="xp-amount">${xp} ${t.xpLabel}</span>
       </div>
-      <div class="anxiety-problem" style="border-color:var(--primary)">
-        <span class="anxiety-label" style="color:var(--primary)">${d.role}</span>
+      <div class="xp-bar-wrap">
+        <div class="xp-bar"><div class="xp-bar-fill" style="width:${progressPct}%"></div></div>
+        <span class="xp-level">${t.levelLabel} ${level}</span>
       </div>
-      <div class="anxiety-solution">
-        <span class="anxiety-label" style="color:var(--accent)">${d.story}</span>
+      ${nextBadge ? `<div class="xp-next">${lang==='ar'?'التالي:':lang==='fr'?'Suivant:':'Next:'} ${nextBadge.emoji} ${nextBadge[lang]} (${nextBadge.xp} XP)</div>` : ''}
+    </div>
+    ${streak > 0 ? `<div class="streak-badge">🔥 ${streak} ${t.streakMsg}</div>` : ''}
+    <div class="progress-stats">
+      <div class="stat-card"><span class="stat-num">${readTraits.length}</span><span class="stat-label">${lang==='ar'?'قضية مقروءة':lang==='fr'?'Questions lues':'Issues Read'}</span><span class="stat-total">/ ${TRAITS.length}</span></div>
+      <div class="stat-card"><span class="stat-num">${bestQuiz}%</span><span class="stat-label">${lang==='ar'?'أفضل نتيجة':lang==='fr'?'Meilleur score':'Best Quiz'}</span></div>
+      <div class="stat-card"><span class="stat-num">${earned.length}</span><span class="stat-label">${lang==='ar'?'شارات':lang==='fr'?'Badges':'Badges'}</span><span class="stat-total">/ ${BADGE_DEFS.length}</span></div>
+    </div>
+    <div class="badges-section">
+      <h3 class="badges-title">${lang==='ar'?'🏅 الشارات':lang==='fr'?'🏅 Badges':'🏅 Badges'}</h3>
+      <div class="badges-grid">
+        ${BADGE_DEFS.map(b => `<div class="badge-item ${earned.includes(b.id)?'earned':'locked'}"><span class="badge-emoji">${b.emoji}</span><span class="badge-name">${b[lang]}</span><span class="badge-xp">${b.xp} XP</span></div>`).join('')}
       </div>
+    </div>`;
+}
+
+function updateXPDisplay() {
+  const panel = document.getElementById('panel-progress');
+  if (panel && panel.classList.contains('active')) renderProgress();
+}
+
+// ═══════════════ RENDER: ABOUT ═══════════════
+function renderAbout() {
+  const about = {
+    ar: {
+      disclaimerTitle: '⚠️ تنبيه مهم',
+      disclaimer: 'لست عالماً ولا مفتياً. هذا جهد متواضع من مسلم يحب كتب الشيخ الغزالي. المحتوى مستمد من الكتاب ومصادر إسلامية موثوقة. ليست فتوى.',
+      authorName: 'الشيخ محمد الغزالي',
+      authorDates: '١٩١٧ — ١٩٩٦',
+      authorBio: 'عالم ومفكر إسلامي مصري، لُقب بـ"أديب الدعوة". ألّف أكثر من ٩٤ كتاباً. عُرف بدفاعه عن حقوق المرأة في الإسلام ونقده للتقاليد الجامدة التي تُلبس ثوب الدين.',
+      bookTitle: 'عن الكتاب',
+      bookDesc: '«قضايا المرأة بين التقاليد الراكدة والوافدة» كتاب يتناول قضايا المرأة المسلمة بجرأة وعمق. ينتقد الغزالي التقاليد الجامدة التي ظلمت المرأة وألبست الظلم ثوب الدين، كما ينتقد التغريب الذي يريد تذويب هوية المرأة المسلمة.',
+      sourcesTitle: 'المصادر',
+      sources: ['كتاب "قضايا المرأة" — الشيخ محمد الغزالي','القرآن الكريم','صحيح البخاري ومسلم','سنن أبي داود والترمذي'],
+      contact: 'تواصل: abdelhak.bourdim@gmail.com'
+    },
+    en: {
+      disclaimerTitle: '⚠️ Important Notice',
+      disclaimer: 'I am not a scholar or mufti. This is a humble effort by a Muslim who loves Sheikh al-Ghazali\'s books. Content is derived from the book and trusted Islamic sources. This is not a fatwa.',
+      authorName: 'Sheikh Mohammed al-Ghazali',
+      authorDates: '1917 — 1996',
+      authorBio: 'Egyptian Islamic scholar and thinker, nicknamed "The Literary Preacher." Author of 94+ books. Known for defending women\'s rights in Islam and critiquing rigid traditions disguised as religion.',
+      bookTitle: 'About the Book',
+      bookDesc: '"Women\'s Issues Between Stagnant and Foreign Traditions" tackles Muslim women\'s issues boldly and deeply. Al-Ghazali critiques rigid traditions that wronged women in the name of religion, and also critiques westernization that seeks to dissolve Muslim women\'s identity.',
+      sourcesTitle: 'Sources',
+      sources: ['"Women\'s Issues" (Qadaya al-Mar\'ah) — Sheikh Mohammed al-Ghazali','The Holy Quran','Sahih al-Bukhari and Muslim','Sunan Abu Dawud and al-Tirmidhi'],
+      contact: 'Contact: abdelhak.bourdim@gmail.com'
+    },
+    fr: {
+      disclaimerTitle: '⚠️ Avis Important',
+      disclaimer: 'Je ne suis ni savant ni mufti. C\'est un effort humble d\'un musulman qui aime les livres du Sheikh al-Ghazali. Le contenu est tire du livre et de sources islamiques fiables.',
+      authorName: 'Sheikh Mohammed al-Ghazali',
+      authorDates: '1917 — 1996',
+      authorBio: 'Savant et penseur islamique egyptien, surnomme "Le Litteraire de la Predication". Auteur de plus de 94 livres. Connu pour la defense des droits des femmes en Islam et la critique des traditions rigides.',
+      bookTitle: 'A Propos du Livre',
+      bookDesc: '"Questions Feminines entre Traditions Stagnantes et Etrangeres" aborde les questions des femmes musulmanes avec audace. Al-Ghazali critique les traditions rigides qui ont lese les femmes au nom de la religion, et aussi le courant d\'occidentalisation.',
+      sourcesTitle: 'Sources',
+      sources: ['"Questions Feminines" (Qadaya al-Mar\'ah) — Sheikh Mohammed al-Ghazali','Le Saint Coran','Sahih al-Bukhari et Muslim','Sunan Abu Dawud et al-Tirmidhi'],
+      contact: 'Contact : abdelhak.bourdim@gmail.com'
+    }
+  };
+  const a = about[lang];
+  document.getElementById('aboutContainer').innerHTML = `
+    <div class="about-disclaimer">
+      <div class="about-disclaimer-title">${a.disclaimerTitle}</div>
+      <p>${a.disclaimer}</p>
+    </div>
+    <div class="about-author">
+      <span class="about-author-icon">📚</span>
+      <div class="about-author-info">
+        <div class="about-author-name">${a.authorName}</div>
+        <div class="about-author-dates">${a.authorDates}</div>
+        <div class="about-author-bio">${a.authorBio}</div>
+      </div>
+    </div>
+    <div class="about-section">
+      <div class="about-section-title">${a.bookTitle}</div>
+      <p class="about-text">${a.bookDesc}</p>
+    </div>
+    <div class="about-section">
+      <div class="about-section-title">${a.sourcesTitle}</div>
+      ${a.sources.map(s => `<p class="about-text">&#8226; ${s}</p>`).join('')}
+    </div>
+    <div class="about-section">
+      <p class="about-text">${a.contact}</p>
+    </div>`;
+}
+
+// ═══════════════ RENDER: HELP ═══════════════
+function renderHelp() {
+  const help = {
+    ar: [
+      {title:'⚠️ تنبيه',body:'لست عالماً. هذا جهد متواضع لنشر فهم قضايا المرأة في الإسلام بطريقة تفاعلية.'},
+      {title:'📚 المصادر',body:'كتاب "قضايا المرأة" للشيخ محمد الغزالي، القرآن الكريم، السنة النبوية.'},
+      {title:'✨ المميزات',body:'ثلاث لغات (عربي/إنجليزي/فرنسي)، ٣ أنماط، ٢٠ قضية، مسابقة تفاعلية، نظام نقاط وشارات، وضعان للأعمار.'},
+      {title:'🌟 وضع مستكشف صغير',body:'للأطفال ٧-١٢ سنة — نصوص مبسطة بالإيموجي، خط أكبر.'},
+      {title:'📖 وضع باحث شاب',body:'للشباب ١٣+ — نصوص كاملة مع آيات وأحاديث وتحليل.'},
+      {title:'🤝 المساهمة',body:'GitHub: github.com/abourdim/qadaya-al-marah'},
+    ],
+    en: [
+      {title:'⚠️ Disclaimer',body:'I am not a scholar. This is a humble effort to share understanding of women\'s issues in Islam interactively.'},
+      {title:'📚 Sources',body:'"Women\'s Issues" by Sheikh Mohammed al-Ghazali, the Holy Quran, Prophetic Sunnah.'},
+      {title:'✨ Features',body:'Three languages (AR/EN/FR), 3 themes, 20 issues, interactive quiz, XP and badges system, 2 age modes.'},
+      {title:'🌟 Young Explorer',body:'For kids 7-12 — simplified text with emojis, larger font.'},
+      {title:'📖 Teen Scholar',body:'For teens 13+ — full text with verses, hadiths, and analysis.'},
+      {title:'🤝 Contributing',body:'GitHub: github.com/abourdim/qadaya-al-marah'},
+    ],
+    fr: [
+      {title:'⚠️ Avertissement',body:'Je ne suis pas un savant. C\'est un effort humble pour partager la comprehension des questions feminines en Islam.'},
+      {title:'📚 Sources',body:'"Questions Feminines" par Sheikh Mohammed al-Ghazali, le Saint Coran, la Sunnah.'},
+      {title:'✨ Fonctionnalites',body:'Trois langues (AR/EN/FR), 3 themes, 20 questions, quiz interactif, systeme XP et badges, 2 modes d\'age.'},
+      {title:'🌟 Jeune Explorateur',body:'Pour enfants 7-12 ans — texte simplifie avec emojis, police plus grande.'},
+      {title:'📖 Jeune Chercheur',body:'Pour ados 13+ — texte complet avec versets, hadiths et analyse.'},
+      {title:'🤝 Contribuer',body:'GitHub : github.com/abourdim/qadaya-al-marah'},
+    ]
+  };
+  document.getElementById('helpBody').innerHTML = help[lang].map(h => `
+    <div class="help-item">
+      <div class="help-item-title">${h.title}</div>
+      <div>${h.body}</div>
+    </div>`).join('');
+}
+
+// ═══════════════ RENDER: DUAS ═══════════════
+function renderDuas() {
+  document.getElementById('duaPanelContent').innerHTML = DUAS.map(d => {
+    const dd = d[lang];
+    return `<div class="dua-item">
+      <div class="dua-item-label">${dd.label}</div>
+      <div class="dua-item-ar">${dd.text}</div>
+      <div class="dua-item-tr">${dd.tr}</div>
     </div>`;
   }).join('');
 }
 
-// ═══════════════ RENDER: HABITS ═══════════════
-function renderHabits() {
-  const today = new Date().toDateString();
-  let habitsState = JSON.parse(localStorage.getItem('qm-habits') || '{}');
-  if (habitsState.date !== today) {
-    updateStreak(habitsState);
-    habitsState = { date: today, done: [] };
-    localStorage.setItem('qm-habits', JSON.stringify(habitsState));
-  }
-  const streak = getStreak();
-  const streakHTML = streak > 0 ? `<div class="streak-badge">🔥 ${streak} ${T[lang].streakMsg}</div>` : '';
-  document.getElementById('habitsContainer').innerHTML = HABITS.map((h, i) => {
-    const d = h[lang];
-    const isDone = habitsState.done.includes(i);
-    return `
-    <div class="habit-item ${isDone ? 'done' : ''}" onclick="toggleHabit(${i})">
-      <span class="habit-check">${isDone ? '&#10003;' : ''}</span>
-      <span class="habit-emoji">${h.emoji}</span>
-      <div><div class="habit-label">${d.label}</div><div class="habit-source">${d.source}</div></div>
-    </div>`;
-  }).join('');
-  const streakEl = document.getElementById('streakBadge');
-  if (streakEl) streakEl.innerHTML = streakHTML;
-  updateHabitsProgress(habitsState);
+// ═══════════════ TICKER ═══════════════
+function renderTicker() {
+  const tips = {
+    ar: ['📖 اقرأ قضية جديدة كل يوم','🏆 اجمع النقاط واربح الشارات','🌟 جرب وضع المستكشف الصغير','🤲 لا تنسَ الدعاء','⭐ أكمل ٢٠ قضية لتصبح خبيراً'],
+    en: ['📖 Read a new issue every day','🏆 Collect points and earn badges','🌟 Try Young Explorer mode','🤲 Don\'t forget to make dua','⭐ Complete all 20 issues to become an Expert'],
+    fr: ['📖 Lisez une nouvelle question chaque jour','🏆 Collectez des points et gagnez des badges','🌟 Essayez le mode Jeune Explorateur','🤲 N\'oubliez pas les duas','⭐ Completez les 20 questions pour devenir Expert']
+  };
+  const items = tips[lang];
+  const doubled = [...items, ...items];
+  const ticker = document.getElementById('tickerText');
+  ticker.innerHTML = doubled.map(t => `<span class="tc">&nbsp;&nbsp;${t}&nbsp;&nbsp;•</span>`).join('');
+  ticker.style.animation = `tickerMarquee ${items.length * 6}s linear infinite`;
 }
 
-function toggleHabit(i) {
-  const today = new Date().toDateString();
-  let hs = JSON.parse(localStorage.getItem('qm-habits') || '{}');
-  if (hs.date !== today) hs = { date: today, done: [] };
-  const idx = hs.done.indexOf(i);
-  if (idx > -1) hs.done.splice(idx, 1); else hs.done.push(i);
-  localStorage.setItem('qm-habits', JSON.stringify(hs));
-  renderHabits();
-  playSound(idx > -1 ? 'click' : 'success');
-  if (hs.done.length === HABITS.length) { launchConfetti(); showToast(T[lang].allDone); }
+// ═══════════════ SPLASH SCREEN ═══════════════
+let splashTimer;
+function initSplash() {
+  const features = document.getElementById('splashFeatures');
+  if (features) {
+    features.innerHTML = T[lang].splashFeatures.map((f, i) =>
+      `<div class="splash-feature" style="animation-delay:${0.3+i*0.3}s">${f}</div>`
+    ).join('');
+  }
+  let count = 5;
+  const counter = document.getElementById('splashCount');
+  splashTimer = setInterval(() => {
+    count--;
+    if (counter) counter.textContent = count;
+    if (count <= 0) dismissSplash();
+  }, 1000);
 }
-function resetHabits() {
-  localStorage.setItem('qm-habits', JSON.stringify({ date: new Date().toDateString(), done: [] }));
-  renderHabits();
-  showToast(lang === 'ar' ? 'تم إعادة التعيين' : lang === 'fr' ? 'Reinitialise' : 'Reset');
+function dismissSplash() {
+  clearInterval(splashTimer);
+  const splash = document.getElementById('splash');
+  if (splash) { splash.classList.add('hidden'); setTimeout(() => splash.remove(), 600); }
 }
-function updateHabitsProgress(hs) {
-  const done = hs.done.length, total = HABITS.length, pct = total > 0 ? (done / total * 100) : 0;
-  const fill = document.getElementById('habitsFill'), txt = document.getElementById('habitsText');
-  if (fill) fill.style.width = pct + '%';
-  if (txt) txt.textContent = `${done}/${total}`;
+
+// ═══════════════ TAB SWITCHING ═══════════════
+function initTabs() {
+  document.querySelectorAll('.tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      const name = tab.dataset.tab;
+      switchTab(name);
+    });
+  });
 }
-function updateStreak(prevState) {
-  let streakData = JSON.parse(localStorage.getItem('qm-streak') || '{"count":0,"lastDate":""}');
-  if (prevState && prevState.done && prevState.done.length === HABITS.length && prevState.date) {
-    const yesterday = new Date(); yesterday.setDate(yesterday.getDate() - 1);
-    if (prevState.date === yesterday.toDateString()) streakData.count++;
-    else if (prevState.date !== new Date().toDateString()) streakData.count = prevState.done.length === HABITS.length ? 1 : 0;
-    streakData.lastDate = prevState.date;
-  } else if (prevState && prevState.date) { streakData.count = 0; streakData.lastDate = prevState.date; }
-  localStorage.setItem('qm-streak', JSON.stringify(streakData));
+function switchTab(name) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  const panel = document.getElementById('panel-' + name);
+  const tabBtn = document.querySelector(`.tab[data-tab="${name}"]`);
+  if (panel) panel.classList.add('active');
+  if (tabBtn) tabBtn.classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  playSound('click');
+  setTimeout(() => {
+    document.querySelectorAll('.scroll-reveal:not(.revealed)').forEach(el => {
+      if (window._scrollObserver) window._scrollObserver.observe(el);
+    });
+    initTypewriter();
+  }, 100);
 }
-function getStreak() { return JSON.parse(localStorage.getItem('qm-streak') || '{"count":0}').count; }
+
+// ═══════════════ SCROLL REVEAL ═══════════════
+function initScrollReveal() {
+  if (!('IntersectionObserver' in window)) return;
+  window._scrollObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('revealed');
+        window._scrollObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.scroll-reveal:not(.revealed)').forEach(el => window._scrollObserver.observe(el));
+}
+
+// ═══════════════ KEYBOARD NAVIGATION ═══════════════
+function initKeyboardNav() {
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      const hp = document.getElementById('helpPanel');
+      if (!hp.classList.contains('hidden')) { toggleHelp(); return; }
+      const dp = document.getElementById('duaPanel');
+      if (!dp.classList.contains('hidden')) { toggleDuaPanel(); return; }
+      document.querySelectorAll('.trait-card.open').forEach(c => c.classList.remove('open'));
+    }
+    if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
+      const panel = document.getElementById('panel-traits');
+      if (!panel || !panel.classList.contains('active')) return;
+      if (document.activeElement && document.activeElement.id === 'traitsSearch') return;
+      e.preventDefault();
+      const cards = Array.from(document.querySelectorAll('.trait-card')).filter(c => c.style.display !== 'none');
+      if (!cards.length) return;
+      if (currentPrincipleIdx >= 0 && currentPrincipleIdx < cards.length) cards[currentPrincipleIdx].classList.remove('open');
+      const dir = document.documentElement.dir === 'rtl' ? (e.key==='ArrowRight'?-1:1) : (e.key==='ArrowRight'?1:-1);
+      currentPrincipleIdx = Math.max(0, Math.min(cards.length-1, currentPrincipleIdx+dir));
+      cards[currentPrincipleIdx].classList.add('open');
+      cards[currentPrincipleIdx].scrollIntoView({ behavior:'smooth', block:'center' });
+      playSound('click');
+    }
+  });
+}
+
+// ═══════════════ UTILITIES ═══════════════
+function toggleCard(id) {
+  const card = document.getElementById(id);
+  if (card) { card.classList.toggle('open'); playSound('click'); }
+}
+function toggleHelp() { document.getElementById('helpPanel').classList.toggle('hidden'); playSound('click'); }
+function toggleDuaPanel() { document.getElementById('duaPanel').classList.toggle('hidden'); playSound('click'); }
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  const m = document.getElementById('toastMsg');
+  if (t && m) { m.textContent = msg; t.style.display = 'block'; setTimeout(() => t.style.display = 'none', 2500); }
+}
+function initScrollTop() {
+  const btn = document.getElementById('scrollTop');
+  window.addEventListener('scroll', () => { if (btn) btn.classList.toggle('visible', window.scrollY > 300); });
+}
+
+// ═══════════════ SOUND EFFECTS ═══════════════
+const AudioCtx = window.AudioContext || window.webkitAudioContext;
+let audioCtx;
+function playSound(type) {
+  try {
+    if (!audioCtx) audioCtx = new AudioCtx();
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+    osc.connect(gain); gain.connect(audioCtx.destination);
+    gain.gain.value = 0.06;
+    if (type==='click') { osc.frequency.value=800; osc.type='sine'; gain.gain.value=0.04; }
+    else if (type==='success') { osc.frequency.value=523; osc.type='sine'; gain.gain.value=0.06; }
+    else if (type==='theme') { osc.frequency.value=440; osc.type='triangle'; gain.gain.value=0.05; }
+    osc.start(); osc.stop(audioCtx.currentTime + 0.1);
+  } catch(e) {}
+}
 
 // ═══════════════ CONFETTI ═══════════════
 function launchConfetti() {
@@ -592,185 +863,66 @@ function launchConfetti() {
   const ctx = canvas.getContext('2d');
   canvas.width = window.innerWidth; canvas.height = window.innerHeight;
   const particles = [];
-  const colors = ['#AD1457','#E91E63','#F48FB1','#CE93D8','#FFD54F','#66BB6A','#4FC3F7'];
-  for (let i = 0; i < 120; i++) particles.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height-canvas.height,w:Math.random()*10+5,h:Math.random()*6+3,color:colors[Math.floor(Math.random()*colors.length)],vx:(Math.random()-0.5)*4,vy:Math.random()*3+2,rot:Math.random()*360,rotSpeed:(Math.random()-0.5)*10});
+  const colors = ['#2E7D32','#4CAF50','#81C784','#A5D6A7','#FFD54F','#FF8A65','#4FC3F7'];
+  for (let i = 0; i < 120; i++) {
+    particles.push({ x:Math.random()*canvas.width, y:Math.random()*canvas.height-canvas.height, w:Math.random()*10+5, h:Math.random()*6+3, color:colors[Math.floor(Math.random()*colors.length)], vx:(Math.random()-0.5)*4, vy:Math.random()*3+2, rot:Math.random()*360, rotSpeed:(Math.random()-0.5)*10 });
+  }
   let frame = 0;
   function draw() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    particles.forEach(p => { p.x += p.vx; p.y += p.vy; p.rot += p.rotSpeed; ctx.save(); ctx.translate(p.x, p.y); ctx.rotate(p.rot * Math.PI / 180); ctx.fillStyle = p.color; ctx.fillRect(-p.w/2, -p.h/2, p.w, p.h); ctx.restore(); });
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    particles.forEach(p => { p.x+=p.vx; p.y+=p.vy; p.rot+=p.rotSpeed; ctx.save(); ctx.translate(p.x,p.y); ctx.rotate(p.rot*Math.PI/180); ctx.fillStyle=p.color; ctx.fillRect(-p.w/2,-p.h/2,p.w,p.h); ctx.restore(); });
     frame++;
     if (frame < 120) requestAnimationFrame(draw);
-    else { ctx.clearRect(0, 0, canvas.width, canvas.height); canvas.style.display = 'none'; }
+    else { ctx.clearRect(0,0,canvas.width,canvas.height); canvas.style.display='none'; }
   }
   draw();
 }
 
-// ═══════════════ RENDER: QUIZ ═══════════════
-function renderQuiz() {
-  const t = T[lang];
-  // Questions 1(no),3(yes),5(yes) are "correct=yes"; 2(no),4(no),6(no),8(no),9(no) are "correct=no"
-  const correctAnswers = [2, 0, 2, 0, 2, 0, 2, 0, 0, 2]; // 2=yes,0=no
-  document.getElementById('quizContainer').innerHTML = QUIZ.map((q, i) => `
-    <div class="quiz-question scroll-reveal" id="quiz-q-${i}">
-      <div class="quiz-q-text">${i+1}. ${q[lang]}</div>
-      <div class="quiz-options">
-        <button class="quiz-opt" onclick="selectQuizOpt(${i},2)">${lang==='ar'?'نعم':lang==='fr'?'Oui':'Yes'}</button>
-        <button class="quiz-opt" onclick="selectQuizOpt(${i},1)">${lang==='ar'?'أحياناً':lang==='fr'?'Parfois':'Sometimes'}</button>
-        <button class="quiz-opt" onclick="selectQuizOpt(${i},0)">${lang==='ar'?'لا':lang==='fr'?'Non':'No'}</button>
-      </div>
-    </div>
-  `).join('') + `<button class="quiz-submit" onclick="submitQuiz()">${t.submitQuiz}</button>`;
-  document.getElementById('quizResult').classList.add('hidden');
-  window._quizAnswers = {};
-  window._correctAnswers = correctAnswers;
-}
-
-function selectQuizOpt(qi, val) {
-  window._quizAnswers[qi] = val;
-  document.querySelectorAll(`#quiz-q-${qi} .quiz-opt`).forEach((o, oi) => {
-    o.classList.toggle('selected', [2,1,0][oi] === val);
-  });
-  playSound('click');
-}
-
-function submitQuiz() {
-  const answers = window._quizAnswers || {};
-  if (Object.keys(answers).length < QUIZ.length) {
-    showToast(lang === 'ar' ? 'أجب على جميع الأسئلة' : lang === 'fr' ? 'Repondez a toutes les questions' : 'Answer all questions');
-    return;
+// ═══════════════ TYPEWRITER ═══════════════
+function initTypewriter() {
+  const dailyTitle = document.querySelector('.daily-card .daily-title');
+  if (!dailyTitle || dailyTitle.dataset.twDone) return;
+  const fullText = dailyTitle.textContent;
+  dailyTitle.textContent = '';
+  dailyTitle.classList.add('typewriter-text');
+  dailyTitle.dataset.twDone = '1';
+  let i = 0;
+  const speed = Math.max(30, 2000 / fullText.length);
+  function typeChar() {
+    if (i < fullText.length) { dailyTitle.textContent += fullText.charAt(i); i++; setTimeout(typeChar, speed); }
+    else { setTimeout(() => dailyTitle.classList.add('tw-done'), 1500); }
   }
-  const correct = window._correctAnswers;
-  let score = 0;
-  Object.entries(answers).forEach(([qi, v]) => { if (v === correct[parseInt(qi)]) score++; });
-  const pct = Math.round(score / QUIZ.length * 100);
-  let emoji, title, desc;
-  if (pct >= 80) {
-    emoji = '🌟'; title = lang==='ar'?'ممتاز!':lang==='fr'?'Excellent !':'Excellent!';
-    desc = lang==='ar'?'معرفتك بحقوق المرأة في الإسلام رائعة! استمري في نشر الوعي.':lang==='fr'?'Votre connaissance des droits de la femme en Islam est remarquable !':'Your knowledge of women\'s rights in Islam is remarkable! Keep spreading awareness.';
-  } else if (pct >= 50) {
-    emoji = '🌹'; title = lang==='ar'?'جيد':lang==='fr'?'Bien':'Good';
-    desc = lang==='ar'?'لديك معرفة جيدة لكن هناك المزيد لتتعلميه. راجعي القضايا.':lang==='fr'?'Vous avez de bonnes connaissances mais il y a plus a apprendre.':'You have good knowledge but there\'s more to learn. Review the issues.';
-  } else {
-    emoji = '📚'; title = lang==='ar'?'تحتاجين للمراجعة':lang==='fr'?'Revision necessaire':'Review Needed';
-    desc = lang==='ar'?'ابدئي بقراءة القضايا في هذا التطبيق لتعرفي حقوق المرأة الحقيقية في الإسلام.':lang==='fr'?'Commencez par lire les questions dans cette application.':'Start by reading the issues in this app to learn true women\'s rights in Islam.';
-  }
-  const result = document.getElementById('quizResult');
-  result.classList.remove('hidden');
-  result.innerHTML = `<div class="qr-emoji">${emoji}</div><div class="qr-score">${pct}%</div><div class="qr-title">${title}</div><div class="qr-desc">${desc}</div><button class="quiz-submit" onclick="renderQuiz()" style="margin-top:16px">${T[lang].quizAgain}</button>`;
-  result.scrollIntoView({ behavior: 'smooth' });
-  playSound('success');
+  setTimeout(typeChar, 500);
 }
 
-// ═══════════════ RENDER: ABOUT ═══════════════
-function renderAbout() {
-  const about = {
-    ar: {
-      disclaimerTitle: '⚠️ تنبيه مهم', disclaimer: 'لست عالماً ولا مفتياً. هذا جهد متواضع لنشر فكر الشيخ الغزالي عن حقوق المرأة. المحتوى مستمد من الكتاب ومصادر إسلامية موثوقة.',
-      authorName: 'الشيخ محمد الغزالي', authorDates: '١٩١٧ — ١٩٩٦',
-      authorBio: 'عالم ومفكر إسلامي مصري. من أبرز المدافعين عن حقوق المرأة في الإسلام. ألّف أكثر من ٩٤ كتاباً. درّس في جامعة الأمير عبد القادر بقسنطينة (الجزائر).',
-      bookTitle: 'عن الكتاب',
-      bookDesc: '"قضايا المرأة بين التقاليد الراكدة والوافدة" يدافع فيه الغزالي عن حقوق المرأة كما جاءت في الإسلام الصحيح. ينتقد التقاليد المتحجرة التي ظلمت المرأة باسم الدين، وينتقد أيضاً الأفكار الغربية المستوردة. يوضح الموقف الوسطي العادل للإسلام.',
-      sourcesTitle: 'المصادر', sources: ['كتاب "قضايا المرأة" — الشيخ محمد الغزالي','القرآن الكريم','صحيح البخاري ومسلم'], contact: 'تواصل: abdelhak.bourdim@gmail.com'
-    },
-    en: {
-      disclaimerTitle: '⚠️ Important Notice', disclaimer: "I am not a scholar. This is a humble effort to share Sheikh al-Ghazali's thought on women's rights. Content is derived from the book and trusted Islamic sources.",
-      authorName: 'Sheikh Mohammed al-Ghazali', authorDates: '1917 — 1996',
-      authorBio: "Egyptian Islamic scholar and thinker. One of the most prominent defenders of women's rights in Islam. Author of 94+ books. Taught at the University of Emir Abdelkader in Constantine, Algeria.",
-      bookTitle: 'About the Book',
-      bookDesc: '"Women\'s Issues Between Stagnant and Imported Traditions" — Al-Ghazali defends women\'s rights as they truly exist in Islam. He criticizes rigid traditions that oppressed women in the name of religion, and also criticizes imported Western ideas. He presents Islam\'s just and balanced position.',
-      sourcesTitle: 'Sources', sources: ['"Women\'s Issues" — Sheikh Mohammed al-Ghazali','The Holy Quran','Sahih al-Bukhari and Muslim'], contact: 'Contact: abdelhak.bourdim@gmail.com'
-    },
-    fr: {
-      disclaimerTitle: '⚠️ Avis Important', disclaimer: "Je ne suis ni savant ni mufti. C'est un effort humble pour partager la pensee du Sheikh al-Ghazali sur les droits de la femme.",
-      authorName: 'Sheikh Mohammed al-Ghazali', authorDates: '1917 — 1996',
-      authorBio: "Savant et penseur islamique egyptien. L'un des plus grands defenseurs des droits de la femme en Islam. Auteur de plus de 94 livres. Professeur a l'Universite Emir Abdelkader de Constantine (Algerie).",
-      bookTitle: 'A Propos du Livre',
-      bookDesc: "\"Questions de la Femme entre Traditions Stagnantes et Importees\" — Al-Ghazali defend les droits de la femme tels qu'ils existent vraiment en Islam. Il critique les traditions rigides qui ont opprime les femmes au nom de la religion, et aussi les idees occidentales importees.",
-      sourcesTitle: 'Sources', sources: ['"Questions de la Femme" — Sheikh Mohammed al-Ghazali','Le Saint Coran','Sahih al-Bukhari et Muslim'], contact: 'Contact : abdelhak.bourdim@gmail.com'
-    }
-  };
-  const a = about[lang];
-  document.getElementById('aboutContainer').innerHTML = `
-    <div class="about-disclaimer"><div class="about-disclaimer-title">${a.disclaimerTitle}</div><p>${a.disclaimer}</p></div>
-    <div class="about-author"><span class="about-author-icon">📚</span><div class="about-author-info"><div class="about-author-name">${a.authorName}</div><div class="about-author-dates">${a.authorDates}</div><div class="about-author-bio">${a.authorBio}</div></div></div>
-    <div class="about-section"><div class="about-section-title">${a.bookTitle}</div><p class="about-text">${a.bookDesc}</p></div>
-    <div class="about-section"><div class="about-section-title">${a.sourcesTitle}</div>${a.sources.map(s => `<p class="about-text">&#8226; ${s}</p>`).join('')}</div>
-    <div class="about-section"><p class="about-text">${a.contact}</p></div>`;
+// ═══════════════ SWIPE GESTURES ═══════════════
+function initSwipeGestures() {
+  let touchStartX = 0, touchStartY = 0;
+  const tabOrder = ['home','traits','quiz','progress','about'];
+  document.addEventListener('touchstart', e => { touchStartX = e.changedTouches[0].screenX; touchStartY = e.changedTouches[0].screenY; }, { passive: true });
+  document.addEventListener('touchend', e => {
+    const dx = e.changedTouches[0].screenX - touchStartX;
+    const dy = e.changedTouches[0].screenY - touchStartY;
+    if (Math.abs(dx) < 80 || Math.abs(dy) > Math.abs(dx) * 0.5) return;
+    const current = tabOrder.findIndex(t => { const p = document.getElementById('panel-'+t); return p && p.classList.contains('active'); });
+    if (current < 0) return;
+    const isRTL = document.documentElement.dir === 'rtl';
+    let next;
+    if ((dx > 0 && !isRTL) || (dx < 0 && isRTL)) next = current - 1; else next = current + 1;
+    if (next >= 0 && next < tabOrder.length) switchTab(tabOrder[next]);
+  }, { passive: true });
 }
 
-// ═══════════════ RENDER: HELP ═══════════════
-function renderHelp() {
-  const help = {
-    ar: [{title:'⚠️ تنبيه',body:'لست عالماً. هذا جهد متواضع لنشر حكمة الشيخ الغزالي عن المرأة.'},{title:'📚 المصادر',body:'كتاب "قضايا المرأة" للشيخ محمد الغزالي.'},{title:'✨ المميزات',body:'ثلاث لغات، ٣ أنماط، ٢٠ قضية، نساء خالدات، عادات، اختبار، أدعية.'},{title:'⌨️ اختصارات',body:'الأسهم للتنقل. Escape لإغلاق اللوحات.'}],
-    en: [{title:'⚠️ Disclaimer',body:"I am not a scholar. This is a humble effort to share Sheikh al-Ghazali's wisdom on women."},{title:'📚 Sources',body:'"Women\'s Issues" by Sheikh Mohammed al-Ghazali.'},{title:'✨ Features',body:'Three languages, 3 themes, 20 issues, heroines, habits, quiz, duas.'},{title:'⌨️ Shortcuts',body:'Arrow keys to navigate. Escape to close panels.'}],
-    fr: [{title:'⚠️ Avertissement',body:"Je ne suis pas un savant. C'est un effort humble pour partager la sagesse du Sheikh al-Ghazali."},{title:'📚 Sources',body:'"Questions de la Femme" par Sheikh Mohammed al-Ghazali.'},{title:'✨ Fonctionnalites',body:'Trois langues, 3 themes, 20 questions, heroines, habitudes, quiz, duas.'},{title:'⌨️ Raccourcis',body:'Fleches pour naviguer. Echap pour fermer.'}]
-  };
-  document.getElementById('helpBody').innerHTML = help[lang].map(h => `<div class="help-item"><div class="help-item-title">${h.title}</div><div>${h.body}</div></div>`).join('');
-}
-
-// ═══════════════ RENDER: DUAS ═══════════════
-function renderDuas() {
-  document.getElementById('duaPanelContent').innerHTML = DUAS.map(d => {
-    const dd = d[lang];
-    return `<div class="dua-item"><div class="dua-item-label">${dd.label}</div><div class="dua-item-ar">${dd.text}</div><div class="dua-item-tr">${dd.tr}</div></div>`;
-  }).join('');
-}
-
-// ═══════════════ SCROLL REVEAL ═══════════════
-function initScrollReveal() {
-  if (!('IntersectionObserver' in window)) return;
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('revealed'); observer.unobserve(entry.target); } });
-  }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
-  function observeAll() { document.querySelectorAll('.scroll-reveal:not(.revealed)').forEach(el => observer.observe(el)); }
-  observeAll();
-  document.querySelectorAll('.tab').forEach(tab => { tab.addEventListener('click', () => setTimeout(observeAll, 100)); });
-}
-
-// ═══════════════ KEYBOARD NAV ═══════════════
-function initKeyboardNav() {
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') {
-      const hp = document.getElementById('helpPanel'); if (!hp.classList.contains('hidden')) { toggleHelp(); return; }
-      const dp = document.getElementById('duaPanel'); if (!dp.classList.contains('hidden')) { toggleDuaPanel(); return; }
-      document.querySelectorAll('.principle-card.open').forEach(c => c.classList.remove('open'));
-    }
-    if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
-      const panel = document.getElementById('panel-concepts');
-      if (!panel || !panel.classList.contains('active')) return;
-      if (document.activeElement && document.activeElement.id === 'conceptsSearch') return;
-      e.preventDefault();
-      const cards = Array.from(document.querySelectorAll('.principle-card')).filter(c => c.style.display !== 'none');
-      if (!cards.length) return;
-      if (currentConceptIdx >= 0 && currentConceptIdx < cards.length) cards[currentConceptIdx].classList.remove('open');
-      const dir = (document.documentElement.dir === 'rtl') ? (e.key === 'ArrowRight' ? -1 : 1) : (e.key === 'ArrowRight' ? 1 : -1);
-      currentConceptIdx = Math.max(0, Math.min(cards.length - 1, currentConceptIdx + dir));
-      cards[currentConceptIdx].classList.add('open');
-      cards[currentConceptIdx].scrollIntoView({ behavior: 'smooth', block: 'center' });
-      playSound('click');
-    }
-  });
-}
-
-// ═══════════════ UTILITIES ═══════════════
-function toggleCard(id) { const card = document.getElementById(id); if (card) { card.classList.toggle('open'); playSound('click'); } }
-function toggleHelp() { document.getElementById('helpPanel').classList.toggle('hidden'); playSound('click'); }
-function toggleDuaPanel() { document.getElementById('duaPanel').classList.toggle('hidden'); playSound('click'); }
-function showToast(msg) { const t = document.getElementById('toast'), m = document.getElementById('toastMsg'); if (t && m) { m.textContent = msg; t.style.display = 'block'; setTimeout(() => t.style.display = 'none', 2500); } }
-function initScrollTop() { const btn = document.getElementById('scrollTop'); window.addEventListener('scroll', () => { if (btn) btn.classList.toggle('visible', window.scrollY > 300); }); }
-
-// ═══════════════ SOUND EFFECTS ═══════════════
-const AudioCtx = window.AudioContext || window.webkitAudioContext;
-let audioCtx;
-function playSound(type) {
-  try {
-    if (!audioCtx) audioCtx = new AudioCtx();
-    const osc = audioCtx.createOscillator(), gain = audioCtx.createGain();
-    osc.connect(gain); gain.connect(audioCtx.destination);
-    gain.gain.value = 0.06;
-    if (type === 'click') { osc.frequency.value = 800; osc.type = 'sine'; gain.gain.value = 0.04; }
-    else if (type === 'success') { osc.frequency.value = 523; osc.type = 'sine'; gain.gain.value = 0.06; }
-    else if (type === 'theme') { osc.frequency.value = 440; osc.type = 'triangle'; gain.gain.value = 0.05; }
-    osc.start(); osc.stop(audioCtx.currentTime + 0.1);
-  } catch(e) {}
-}
+// ═══════════════ INIT ═══════════════
+document.addEventListener('DOMContentLoaded', () => {
+  document.body.classList.toggle('young-mode', ageMode === 'young');
+  updateStreak();
+  initSplash();
+  renderAll();
+  initTabs();
+  initScrollReveal();
+  initScrollTop();
+  initKeyboardNav();
+  initSwipeGestures();
+  initTypewriter();
+});
