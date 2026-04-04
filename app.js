@@ -337,23 +337,41 @@ function cycleTheme() {
 // ═══════════════ RENDER ALL ═══════════════
 function renderAll() {
   const t = T[lang];
-  document.getElementById('appTitle').textContent = t.appTitle;
-  document.getElementById('splashSub').textContent = t.splashSub;
-  document.getElementById('splashHint').textContent = t.splashHint;
-  document.getElementById('tabHome').textContent = t.tabHome;
-  document.getElementById('tabTraits').textContent = t.tabTraits;
-  document.getElementById('tabQuiz').textContent = t.tabQuiz;
-  document.getElementById('tabProgress').textContent = t.tabProgress;
-  document.getElementById('tabAbout').textContent = t.tabAbout;
-  document.getElementById('traitsTitle').textContent = t.traitsTitle;
-  document.getElementById('traitsDesc').textContent = t.traitsDesc;
-  document.getElementById('quizTitle').textContent = t.quizTitle;
-  document.getElementById('quizDesc').textContent = t.quizDesc;
-  document.getElementById('progressTitle').textContent = t.progressTitle;
-  document.getElementById('progressDesc').textContent = t.progressDesc;
-  document.getElementById('helpTitle').textContent = t.helpTitle;
-  document.getElementById('duaPanelTitle').textContent = t.duaPanelTitle;
-  document.getElementById('ageModeBtn').textContent = ageMode === 'young' ? t.youngMode : t.teenMode;
+  // Update header and splash
+  const set = (id, val) => {
+    const el = document.getElementById(id);
+    if (el) el.textContent = val;
+  };
+  set('appTitle', t.appTitle);
+  set('splashSub', t.splashSub);
+  set('splashHint', t.splashHint);
+  // Update tabs
+  set('tabHome', t.tabHome);
+  set('tabTraits', t.tabTraits);
+  set('tabQuiz', t.tabQuiz);
+  set('tabProgress', t.tabProgress);
+  set('tabAbout', t.tabAbout);
+  // Update section titles
+  set('traitsTitle', t.traitsTitle);
+  set('traitsDesc', t.traitsDesc);
+  set('quizTitle', t.quizTitle);
+  set('quizDesc', t.quizDesc);
+  set('progressTitle', t.progressTitle);
+  set('progressDesc', t.progressDesc);
+  // Update panels
+  set('helpTitle', t.helpTitle);
+  set('duaPanelTitle', t.duaPanelTitle);
+  // Update age mode button
+  const ageModeBtn = document.getElementById('ageModeBtn');
+  if (ageModeBtn) ageModeBtn.textContent = ageMode === 'young' ? t.youngMode : t.teenMode;
+  // Update splash features
+  const featuresEl = document.getElementById('splashFeatures');
+  if (featuresEl) {
+    featuresEl.innerHTML = T[lang].splashFeatures.map((f, i) =>
+      `<div class="splash-feature" style="animation-delay:${0.3 + i * 0.3}s">${f}</div>`
+    ).join('');
+  }
+  // Render all sections
   renderHome();
   renderTraits();
   renderProgress();
@@ -366,6 +384,7 @@ function renderAll() {
 // ═══════════════ RENDER: HOME ═══════════════
 function renderHome() {
   const t = T[lang];
+  // Daily trait based on day of month
   const dayIdx = new Date().getDate() % TRAITS.length;
   const trait = TRAITS[dayIdx];
   const d = trait[lang];
@@ -374,13 +393,20 @@ function renderHome() {
     <div class="daily-title">${trait.emoji} ${d.title}</div>
     <div class="daily-body">${ageMode === 'young' ? d.young : d.desc}</div>
     <div class="daily-action" onclick="switchTab('traits');toggleCard('trait-${trait.id}')">${t.readMore} &#8594;</div>`;
-  document.getElementById('homeGrid').innerHTML = TRAITS.map(tr => {
-    const dd = tr[lang];
-    return `<div class="home-card" onclick="switchTab('traits');toggleCard('trait-${tr.id}')">
-      <span class="hc-icon">${tr.emoji}</span>
-      <div class="hc-title">${dd.title}</div>
-    </div>`;
-  }).join('');
+  // Home grid: quick access to all 20 issues
+  const sections = [
+    {icon:'📖', tab:'traits', title:t.tabTraits, desc:lang==='ar'?'٢٠ قضية عن حقوق المرأة':lang==='fr'?'20 questions sur les droits des femmes':'20 issues on women\'s rights'},
+    {icon:'🏆', tab:'quiz', title:t.tabQuiz, desc:lang==='ar'?'اختبر معلوماتك':lang==='fr'?'Testez vos connaissances':'Test your knowledge'},
+    {icon:'📊', tab:'progress', title:t.tabProgress, desc:lang==='ar'?'تقدمك وإنجازاتك':lang==='fr'?'Vos progres et realisations':'Your progress and achievements'},
+    {icon:'📚', tab:'about', title:t.tabAbout, desc:lang==='ar'?'عن الكتاب والمؤلف':lang==='fr'?'Le livre et l\'auteur':'Book & author'},
+  ];
+  document.getElementById('homeGrid').innerHTML = sections.map(s => `
+    <div class="home-card" onclick="switchTab('${s.tab}')">
+      <span class="hc-icon">${s.icon}</span>
+      <div class="hc-title">${s.title}</div>
+      <div class="hc-desc">${s.desc}</div>
+    </div>
+  `).join('');
 }
 
 // ═══════════════ RENDER: TRAITS ═══════════════
@@ -433,13 +459,22 @@ function filterTraits(query) {
   });
 }
 
-function shareTrait(id) {
+async function shareTrait(id) {
   const trait = TRAITS.find(t => t.id === id);
   if (!trait) return;
   const d = trait[lang];
-  const text = `${trait.emoji} ${d.title}\n${d.desc}\n\n${d.verse} — ${d.verseRef}`;
-  if (navigator.share) { navigator.share({ title: d.title, text }); }
-  else { navigator.clipboard.writeText(text).then(() => showToast(lang==='ar'?'تم النسخ':'Copied!')); }
+  const text = `${trait.emoji} ${d.title}\n\n${d.desc}\n\n📖 ${d.verse}\n— ${d.verseRef}\n\n📜 ${d.hadith}\n\n💡 ${d.action}\n\n— ${T[lang].appTitle}`;
+  if (navigator.share) {
+    try { await navigator.share({ title: d.title, text }); }
+    catch(e) { /* User cancelled share */ }
+  } else {
+    try {
+      await navigator.clipboard.writeText(text);
+      showToast(lang==='ar' ? 'تم النسخ!' : lang==='fr' ? 'Copie !' : 'Copied!');
+    } catch(e) {
+      showToast(lang==='ar' ? 'تعذر النسخ' : 'Could not copy');
+    }
+  }
 }
 
 // ═══════════════ RENDER: QUIZ (Who Wants to Be a Scholar?) ═══════════════
@@ -538,13 +573,27 @@ function showQuizResult() {
   const t = T[lang];
   const total = QUIZ.length;
   const pct = Math.round(quizState.score / total * 100);
+  // Save best score
   const best = parseInt(localStorage.getItem(QUIZ_BEST_KEY) || '0');
   if (pct > best) localStorage.setItem(QUIZ_BEST_KEY, pct);
+  // Bonus XP for completing quiz
   addXP(20);
-  let emoji, title;
-  if (pct >= 80) { emoji = '🏆'; title = lang==='ar'?'عالم حقيقي!':lang==='fr'?'Un vrai savant !':'A True Scholar!'; }
-  else if (pct >= 50) { emoji = '📖'; title = lang==='ar'?'جيد جداً!':lang==='fr'?'Tres bien !':'Very Good!'; }
-  else { emoji = '🌱'; title = lang==='ar'?'واصل التعلم!':lang==='fr'?'Continue !':'Keep Learning!'; }
+  // Determine result tier
+  let emoji, title, desc;
+  if (pct >= 80) {
+    emoji = '🏆';
+    title = lang==='ar' ? 'عالم حقيقي!' : lang==='fr' ? 'Un vrai savant !' : 'A True Scholar!';
+    desc = lang==='ar' ? 'معرفتك بقضايا المرأة ممتازة!' : lang==='fr' ? 'Votre connaissance des questions feminines est excellente !' : 'Your knowledge of women\'s issues is excellent!';
+  } else if (pct >= 50) {
+    emoji = '📖';
+    title = lang==='ar' ? 'جيد جداً!' : lang==='fr' ? 'Tres bien !' : 'Very Good!';
+    desc = lang==='ar' ? 'راجع القضايا لتعزيز معرفتك' : lang==='fr' ? 'Revisez les questions pour renforcer vos connaissances' : 'Review the issues to strengthen your knowledge';
+  } else {
+    emoji = '🌱';
+    title = lang==='ar' ? 'واصل التعلم!' : lang==='fr' ? 'Continuez d\'apprendre !' : 'Keep Learning!';
+    desc = lang==='ar' ? 'اقرأ القضايا بتمعن ثم أعد المسابقة' : lang==='fr' ? 'Lisez attentivement les questions puis refaites le quiz' : 'Read the issues carefully then retry the quiz';
+  }
+  // Render result
   document.getElementById('quizContainer').innerHTML = '';
   const result = document.getElementById('quizResult');
   result.classList.remove('hidden');
@@ -552,9 +601,11 @@ function showQuizResult() {
     <div class="qr-emoji">${emoji}</div>
     <div class="qr-score">${quizState.score}/${total}</div>
     <div class="qr-title">${title}</div>
-    <div class="qr-desc">${pct}%</div>
+    <div class="qr-desc">${desc}</div>
+    <div class="qr-pct">${pct}%</div>
     <button class="quiz-submit" onclick="renderQuiz()">${t.tryAgain}</button>`;
   result.scrollIntoView({ behavior: 'smooth' });
+  // Confetti for high scores
   if (pct >= 80) launchConfetti();
   quizState.active = false;
 }
@@ -608,7 +659,7 @@ function renderAbout() {
   const about = {
     ar: {
       disclaimerTitle: '⚠️ تنبيه مهم',
-      disclaimer: 'لست عالماً ولا مفتياً. هذا جهد متواضع من مسلم يحب كتب الشيخ الغزالي. المحتوى مستمد من الكتاب ومصادر إسلامية موثوقة. ليست فتوى.',
+      disclaimer: 'هذا التطبيق مستوحى من كتاب الشيخ محمد الغزالي رحمه الله، وليس بديلاً عن قراءة الكتاب الأصلي. المحتوى ملخصات تعليمية مبسطة وليست نقلاً حرفياً. قد تحتوي على تبسيط لأفكار المؤلف. يُرجى الرجوع للكتاب الأصلي وللعلماء المتخصصين.',
       authorName: 'الشيخ محمد الغزالي',
       authorDates: '١٩١٧ — ١٩٩٦',
       authorBio: 'عالم ومفكر إسلامي مصري، لُقب بـ"أديب الدعوة". ألّف أكثر من ٩٤ كتاباً. عُرف بدفاعه عن حقوق المرأة في الإسلام ونقده للتقاليد الجامدة التي تُلبس ثوب الدين.',
@@ -855,7 +906,7 @@ function playSound(type) {
   } catch(e) {}
 }
 
-// ═══════════════ CONFETTI ═══════════════
+// ═══════════════ CONFETTI CELEBRATION ═══════════════
 function launchConfetti() {
   const canvas = document.getElementById('confettiCanvas');
   if (!canvas) return;
@@ -913,10 +964,34 @@ function initSwipeGestures() {
   }, { passive: true });
 }
 
+// ═══════════════ SCROLL TOP BUTTON ═══════════════
+function scrollToTop() {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ═══════════════ ACCESSIBILITY ═══════════════
+function initAccessibility() {
+  // Add ARIA labels for interactive elements
+  document.querySelectorAll('.trait-card').forEach(card => {
+    card.setAttribute('role', 'article');
+  });
+  document.querySelectorAll('.quiz-opt').forEach(opt => {
+    opt.setAttribute('role', 'button');
+  });
+  // Focus management for panels
+  document.querySelectorAll('.tab').forEach(tab => {
+    tab.setAttribute('role', 'tab');
+    tab.setAttribute('tabindex', '0');
+  });
+}
+
 // ═══════════════ INIT ═══════════════
 document.addEventListener('DOMContentLoaded', () => {
+  // Set age mode class on body
   document.body.classList.toggle('young-mode', ageMode === 'young');
+  // Update daily streak
   updateStreak();
+  // Initialize all components
   initSplash();
   renderAll();
   initTabs();
@@ -925,4 +1000,5 @@ document.addEventListener('DOMContentLoaded', () => {
   initKeyboardNav();
   initSwipeGestures();
   initTypewriter();
+  initAccessibility();
 });
