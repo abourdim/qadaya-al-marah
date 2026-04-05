@@ -330,7 +330,7 @@ function cycleTheme() {
   const idx = (THEMES.indexOf(currentTheme) + 1) % THEMES.length;
   currentTheme = THEMES[idx];
   document.documentElement.dataset.theme = currentTheme;
-  document.getElementById('themeIcon').textContent = THEME_ICONS[currentTheme];
+  { const _e=document.getElementById('themeIcon'); if(_e) _e.textContent=THEME_ICONS[currentTheme]; }
   playSound('theme');
 }
 
@@ -388,7 +388,7 @@ function renderHome() {
   const dayIdx = new Date().getDate() % TRAITS.length;
   const trait = TRAITS[dayIdx];
   const d = trait[lang];
-  document.getElementById('dailyCard').innerHTML = `
+  (document.getElementById('dailyCard')||{}).innerHTML= `
     <div class="daily-label">${t.dailyLabel}</div>
     <div class="daily-title">${trait.emoji} ${d.title}</div>
     <div class="daily-body">${ageMode === 'young' ? d.young : d.desc}</div>
@@ -400,7 +400,7 @@ function renderHome() {
     {icon:'📊', tab:'progress', title:t.tabProgress, desc:lang==='ar'?'تقدمك وإنجازاتك':lang==='fr'?'Vos progres et realisations':'Your progress and achievements'},
     {icon:'📚', tab:'about', title:t.tabAbout, desc:lang==='ar'?'عن الكتاب والمؤلف':lang==='fr'?'Le livre et l\'auteur':'Book & author'},
   ];
-  document.getElementById('homeGrid').innerHTML = sections.map(s => `
+  (document.getElementById('homeGrid')||{}).innerHTML= sections.map(s => `
     <div class="home-card" onclick="switchTab('${s.tab}')">
       <span class="hc-icon">${s.icon}</span>
       <div class="hc-title">${s.title}</div>
@@ -594,7 +594,7 @@ function showQuizResult() {
     desc = lang==='ar' ? 'اقرأ القضايا بتمعن ثم أعد المسابقة' : lang==='fr' ? 'Lisez attentivement les questions puis refaites le quiz' : 'Read the issues carefully then retry the quiz';
   }
   // Render result
-  document.getElementById('quizContainer').innerHTML = '';
+  (document.getElementById('quizContainer')||{}).innerHTML= '';
   const result = document.getElementById('quizResult');
   result.classList.remove('hidden');
   result.innerHTML = `
@@ -623,7 +623,7 @@ function renderProgress() {
   const nextXP = nextBadge ? nextBadge.xp : 1000;
   const progressPct = Math.min(100, (xp / nextXP) * 100);
 
-  document.getElementById('progressContainer').innerHTML = `
+  (document.getElementById('progressContainer')||{}).innerHTML= `
     <div class="progress-xp-card">
       <div class="xp-header">
         <span class="xp-icon">⭐</span>
@@ -695,7 +695,7 @@ function renderAbout() {
     }
   };
   const a = about[lang];
-  document.getElementById('aboutContainer').innerHTML = `
+  (document.getElementById('aboutContainer')||{}).innerHTML= `
     <div class="about-disclaimer">
       <div class="about-disclaimer-title">${a.disclaimerTitle}</div>
       <p>${a.disclaimer}</p>
@@ -749,7 +749,7 @@ function renderHelp() {
       {title:'🤝 Contribuer',body:'GitHub : github.com/abourdim/qadaya-al-marah'},
     ]
   };
-  document.getElementById('helpBody').innerHTML = help[lang].map(h => `
+  (document.getElementById('helpBody')||{}).innerHTML= help[lang].map(h => `
     <div class="help-item">
       <div class="help-item-title">${h.title}</div>
       <div>${h.body}</div>
@@ -758,7 +758,7 @@ function renderHelp() {
 
 // ═══════════════ RENDER: DUAS ═══════════════
 function renderDuas() {
-  document.getElementById('duaPanelContent').innerHTML = DUAS.map(d => {
+  (document.getElementById('duaPanelContent')||{}).innerHTML= DUAS.map(d => {
     const dd = d[lang];
     return `<div class="dua-item">
       <div class="dua-item-label">${dd.label}</div>
@@ -829,6 +829,10 @@ function switchTab(name) {
     });
     initTypewriter();
   }, 100);
+  // Auto-render quiz when switching to quiz tab
+  if (name === 'quiz' && document.getElementById('quizContainer') && !document.getElementById('quizContainer').innerHTML.trim()) {
+    renderQuiz();
+  }
 }
 
 // ═══════════════ SCROLL REVEAL ═══════════════
